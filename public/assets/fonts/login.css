@@ -1,0 +1,91 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,100);
+
+body {
+    background: #ffffff;
+    font-family: 'Roboto', sans-serif;
+}
+
+svg.bi {
+    /* Add any styles you want to apply to the SVG */
+    width: 20px; /* Example width */
+    height: 20px; /* Example height */
+    fill: green; /* Example fill color */
+}
+
+.login-card {
+    width: 35%;
+    margin: 6em auto;
+    background: #ffffff;
+    padding: 2em;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-card h1 {
+    font-size: 3em;
+    text-align: center;
+    color: #76b852;
+    font-weight: bold;
+    text-transform: capitalize;
+    letter-spacing: 4px;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 1em;
+}
+
+.login-card input[type=submit] {
+    font-size: .9em;
+    color: #fff;
+    background: #76b852;
+    outline: none;
+    border: 1px solid #76b852;
+    cursor: pointer;
+    padding: 1em;
+    width: 100%;
+    margin: 1em 0;
+    letter-spacing: 4px;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.login-card input.text,
+.login-card input[type="password"] {
+    width: 100%;
+    display: block;
+    padding: 1em;
+    font-size: 0.9em;
+    color: #000;
+    font-weight: 100;
+    margin-bottom: 1em;
+    border: 1px solid #76b852;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.login-card input[type="password"] {
+    margin-bottom: 2em;
+}
+
+.login-card .login-help {
+    text-align: center;
+}
+
+.login-card .login-help a {
+    color: #000;
+}
+
+.alert {
+    padding: 1em;
+    border-radius: 15px;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+.alert-success {
+    background: #76b852; /* Green for success */
+    color: white;
+}
+
+.alert-error {
+    background: #ff0000; /* Red for login error */
+    color: white;
+}
