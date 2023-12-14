@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreLoginAdmin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,12 +20,12 @@ class LoginController extends Controller
         $kredensial = $request->only('email', 'password');
 
         $checkUser = User::where('email', $request->email)
-                            ->where('role', 'renter')
+                            ->whereIn('role', ['owner', 'renter'])
                             ->first();
 
         if (empty($checkUser)) {
             return back()->withErrors([
-                'email' => 'Wrong email or password!'
+                'email' => 'Email atau password salah!'
             ])->onlyInput('email');
         }
 
@@ -33,13 +34,13 @@ class LoginController extends Controller
 
             Auth::user();
 
-            activity()->causedBy(Auth::user())->log("Successfully login");
+            activity()->causedBy(Auth::user())->log("Berhasil login");
 
             return redirect()->intended('/');
         }
 
         return back()->withErrors([
-            'email' => 'Wrong email or password!'
+            'email' => 'Email atau password salah!'
         ])->onlyInput('email');
     }
 
@@ -48,8 +49,32 @@ class LoginController extends Controller
         return view('pages.auth.coordinator.login');
     }
 
-    public function login_coordinator_process()
+    public function login_coordinator_process(StoreLoginAdmin $request)
     {
+        $kredensial = $request->only('email', 'password');
 
+        $checkUser = User::where('email', $request->email)
+                            ->where('role', 'admin')
+                            ->first();
+
+        if (empty($checkUser)) {
+            return back()->withErrors([
+                'email' => 'Email atau password salah!'
+            ])->onlyInput('email');
+        }
+
+        if (Auth::attempt($kredensial)) {
+            $request->session()->regenerate();
+
+            Auth::user();
+
+            activity()->causedBy(Auth::user())->log("Berhasil login");
+
+            return redirect()->intended('/');
+        }
+
+        return back()->withErrors([
+            'email' => 'Email atau password salah!'
+        ])->onlyInput('email');
     }
 }
