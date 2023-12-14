@@ -89,3 +89,22 @@ svg.bi {
     background: #ff0000; /* Red for login error */
     color: white;
 }
+
+select.text.email {
+    font-size: 0.9em;
+    color: #76b852; /* Ubah ke warna teks yang sesuai */
+    font-weight: 100;
+    width: 100%; /* Mengatur lebar elemen menjadi 100% dari kontainernya */
+    display: block;
+    padding: 10px 0.8em;
+    margin-bottom: 1em;
+    -webkit-transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+    transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 96%, #fff 4%);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, #fff 4%);
+    background-position: -800px 0;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    border: 1px solid #76b852; /* Ubah sesuai kebutuhan Anda */
+    border-radius: 5px; /* Ubah sesuai kebutuhan Anda */
+  }

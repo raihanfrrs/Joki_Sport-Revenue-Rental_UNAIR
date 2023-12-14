@@ -15,8 +15,8 @@ return new class extends Migration
         Schema::create('fields', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Gor::class);
-            $table->string('nama');
-            $table->longText('deskripsi');
+            $table->string('name');
+            $table->longText('description');
             $table->timestamps();
         });
     }

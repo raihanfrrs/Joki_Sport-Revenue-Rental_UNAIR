@@ -16,8 +16,8 @@ class RenterSeeder extends Seeder
         $renters = [
             [
                 'user_id' => 3,
-                'nama' => 'Adam Maurizio',
-                'ponsel' => '081727383923'
+                'name' => 'Adam Maurizio',
+                'phone' => '081727383923'
             ]
         ];
 

@@ -1,9 +1,9 @@
-@extends('layouts.admin')
+@extends('layouts.coordinator')
 
-@section('section-admin')
-    @if (auth()->user()->level == 'admin')
+@section('section-coordinator')
+    @if (auth()->user()->role == 'admin')
         @include('pages.admin.dashboard.index')
-    @elseif (auth()->user()->level == 'owner')
+    @elseif (auth()->user()->role == 'owner')
         @include('pages.owner.dashboard.index')
     @endif
 @endsection

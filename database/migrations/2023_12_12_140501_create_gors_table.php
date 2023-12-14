@@ -15,10 +15,10 @@ return new class extends Migration
         Schema::create('gors', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Owner::class);
-            $table->string('nama');
-            $table->bigInteger('harga');
-            $table->enum('durasi_sewa', ['jam', 'masuk']);
-            $table->text('alamat');
+            $table->string('name');
+            $table->bigInteger('price');
+            $table->enum('type_duration', ['jam', 'masuk']);
+            $table->text('address');
             $table->timestamps();
         });
     }
