@@ -16,9 +16,9 @@ class OwnerSeeder extends Seeder
         $owners = [
             [
                 'user_id' => 2,
-                'nama' => 'Universitas Airlangga Surabaya',
-                'alamat' => 'Jl. Dr. Ir. H. Soekarno, Mulyorejo, Kec. Mulyorejo, Surabaya, Jawa Timur 60115',
-                'ponsel' => '(031) 5914043'
+                'name' => 'Universitas Airlangga Surabaya',
+                'address' => 'Jl. Dr. Ir. H. Soekarno, Mulyorejo, Kec. Mulyorejo, Surabaya, Jawa Timur 60115',
+                'phone' => '(031) 5914043'
             ]
         ];
 

@@ -15,8 +15,8 @@ return new class extends Migration
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class);
-            $table->string('nama');
-            $table->string('ponsel');
+            $table->string('name');
+            $table->string('phone');
             $table->timestamps();
         });
     }

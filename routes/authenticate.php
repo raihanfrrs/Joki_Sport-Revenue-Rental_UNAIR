@@ -15,11 +15,12 @@ Route::middleware('guest')->group(function () {
         Route::get('/login','login_renter')->name('login.renter');
         Route::post('/login','login_renter_process')->name('login.renter.process');
         Route::get('/admin-004-login', 'login_coordinator')->name('login.coordinator');
-        Route::post('/admin-004','login_coordinator_process')->name('login.coordinator.process');
+        Route::post('/admin-004-login','login_coordinator_process')->name('login.coordinator.process');
     });
 
     Route::controller(RegisterController::class)->group(function () {
         Route::get('/registration','registration_index')->name('registration');
+        Route::post('/registration','registration_store')->name('registration.store');
     });
 });
 
