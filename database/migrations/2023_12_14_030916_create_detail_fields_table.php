@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Field;
+use App\Models\TimeField;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,6 +16,7 @@ return new class extends Migration
         Schema::create('detail_fields', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Field::class);
+            $table->foreignIdFor(TimeField::class);
             $table->timestamps();
         });
     }

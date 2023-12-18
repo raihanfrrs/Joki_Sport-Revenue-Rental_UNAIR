@@ -15,8 +15,22 @@ class Renter extends Model implements HasMedia
         'id'
     ];
 
+    public function getRouteKeyName() {
+        return 'slug';
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function transaction()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function temp_cart()
+    {
+        return $this->hasMany(TempCart::class);
     }
 }

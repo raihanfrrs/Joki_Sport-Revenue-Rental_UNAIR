@@ -15,8 +15,27 @@ class Owner extends Model implements HasMedia
         'id'
     ];
 
+    public function getRouteKeyName() {
+        return 'slug';
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function gor()
+    {
+        return $this->hasMany(Gor::class);
+    }
+
+    public function subscription_transaction()
+    {
+        return $this->hasMany(SubscriptionTransaction::class);
+    }
+
+    public function field_categories()
+    {
+        return $this->hasMany(FieldCategory::class);
     }
 }

@@ -15,6 +15,10 @@ class Admin extends Model implements HasMedia
         'id'
     ];
 
+    public function getRouteKeyName() {
+        return 'slug';
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -12,6 +12,7 @@
 */
 
 require __DIR__.'/authenticate.php';
+require __DIR__.'/utils.php';
 require __DIR__.'/admin.php';
 require __DIR__.'/owner.php';
 require __DIR__.'/renter.php';
