@@ -15,10 +15,13 @@ return new class extends Migration
         Schema::create('gors', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Owner::class);
-            $table->string('name');
+            $table->string('name')->unique();
+            $table->string('slug');
             $table->bigInteger('price');
-            $table->enum('type_duration', ['jam', 'masuk']);
-            $table->text('address');
+            $table->enum('type_duration', ['hours', 'in']);
+            $table->longText('address');
+            $table->longText('standard')->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
     }

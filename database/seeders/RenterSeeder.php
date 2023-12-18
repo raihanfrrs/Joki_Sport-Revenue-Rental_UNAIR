@@ -17,6 +17,7 @@ class RenterSeeder extends Seeder
             [
                 'user_id' => 3,
                 'name' => 'Adam Maurizio',
+                'slug' => 'adam-maurizio',
                 'phone' => '081727383923'
             ]
         ];

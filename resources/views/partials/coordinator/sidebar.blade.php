@@ -17,27 +17,27 @@
         <li class="nav-heading">Menu</li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#data-master-nav-owner" data-bs-toggle="collapse" href="#">
+            <a class="nav-link {{ request()->is('master/*') ? '' : 'collapsed' }}" data-bs-target="#data-master-nav-owner" data-bs-toggle="collapse" href="#">
             <i class="bi bi-menu-button-wide"></i><span>Data Master</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="data-master-nav-owner" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <ul id="data-master-nav-owner" class="nav-content {{ request()->is('master/*') ? '' : 'collapse' }}" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="">
+                    <a href="{{ route('master.renter') }}" class="{{ request()->is('master/renter', 'master/renter/*') ? 'active' : '' }}">
                     <i class="bi bi-circle"></i><span>Penyewa</span>
                     </a>
                 </li>
                 <li>
-                    <a href="">
+                    <a href="{{ route('master.gor') }}" class="{{ request()->is('master/gor', 'master/gor/*') ? 'active' : '' }}">
                     <i class="bi bi-circle"></i><span>Gor</span>
                     </a>
                 </li>
                 <li>
-                    <a href="">
+                    <a href="{{ route('master.field') }}" class="{{ request()->is('master/field', 'master/field/*') ? 'active' : '' }}">
                     <i class="bi bi-circle"></i><span>Lapangan</span>
                     </a>
                 </li>
                 <li>
-                    <a href="">
+                    <a href="{{ route('master.category') }}" class="{{ request()->is('master/category', 'master/category/*') ? 'active' : '' }}">
                     <i class="bi bi-circle"></i><span>Kategori</span>
                     </a>
                 </li>
