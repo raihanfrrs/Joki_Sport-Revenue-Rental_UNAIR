@@ -17,6 +17,7 @@ class OwnerSeeder extends Seeder
             [
                 'user_id' => 2,
                 'name' => 'Universitas Airlangga Surabaya',
+                'slug' => 'universitas-airlangga-surabaya',
                 'address' => 'Jl. Dr. Ir. H. Soekarno, Mulyorejo, Kec. Mulyorejo, Surabaya, Jawa Timur 60115',
                 'phone' => '(031) 5914043'
             ]

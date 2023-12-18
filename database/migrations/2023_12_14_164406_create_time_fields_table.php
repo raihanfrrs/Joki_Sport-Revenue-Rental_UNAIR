@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Owner;
-use App\Models\Subscription;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subcription_transactions', function (Blueprint $table) {
+        Schema::create('time_fields', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Owner::class);
-            $table->foreignIdFor(Subscription::class);
-            $table->enum('status', ['active', 'inactive']);
+            $table->time('start');
+            $table->time('end');
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('subcription_transactions');
+        Schema::dropIfExists('time_fields');
     }
 };

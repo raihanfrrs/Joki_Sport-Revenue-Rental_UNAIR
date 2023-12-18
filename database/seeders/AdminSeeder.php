@@ -17,6 +17,7 @@ class AdminSeeder extends Seeder
             [
                 'user_id' => 1,
                 'name' => 'Mohamad Raihan Farras',
+                'slug' => 'mohamad-raihan-farras',
                 'phone' => '081333903187'
             ]
         ];

@@ -8,6 +8,7 @@
   <title>Admin | Sport Venues Rental Website</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <!-- Favicons -->
   <link href="{{ asset('assets/images/favicon.png') }}" rel="icon">
@@ -24,10 +25,15 @@
   <link href="{{ asset('assets/vendor/quill/quill.snow.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/vendor/quill/quill.bubble.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
-  <link href="{{ asset('assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/datatables/css/datatables.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/sweetalert2/css/sweetalert2.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/trix-editor/css/trix.css') }}" rel="stylesheet">
 
   <!-- Template Main CSS File -->
   <link href="{{ asset('assets/css/coordinator/style.css') }}" rel="stylesheet">
+
+  <!-- Vendor JS Files -->
+  <script src="{{ asset('assets/vendor/sweetalert2/js/sweetalert2.min.js') }}"></script>
 
 </head>
 
@@ -37,6 +43,10 @@
         @include('partials.coordinator.navbar')
         
         @include('partials.coordinator.sidebar')
+
+        @include('components.modal')
+
+        @include('partials.flasher')
 
         <main id="main" class="main">
 
@@ -59,6 +69,8 @@
 
 
   <!-- Vendor JS Files -->
+  <script src="{{ asset('assets/vendor/jquery/jquery-3.7.1.min.js') }}"></script>
+  <script src="{{ asset('assets/vendor/datatables/js/datatables.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/chart.js/chart.umd.js') }}"></script>
@@ -67,9 +79,13 @@
   <script src="{{ asset('assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
   <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
+  <script src="{{ asset('assets/vendor/trix-editor/js/trix.umd.min.js') }}"></script>
 
   <!-- Template Main JS File -->
   <script src="{{ asset('assets/js/main.js') }}"></script>
+  <script src="{{ asset('assets/js/datatables.js') }}"></script>
+  <script src="{{ asset('assets/js/prev-image.js') }}"></script>
+  <script src="{{ asset('assets/js/utils.js') }}"></script>
 
 </body>
 

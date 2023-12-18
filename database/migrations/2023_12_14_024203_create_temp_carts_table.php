@@ -2,6 +2,7 @@
 
 use App\Models\Field;
 use App\Models\DetailField;
+use App\Models\Gor;
 use App\Models\Renter;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,8 +18,10 @@ return new class extends Migration
         Schema::create('temp_carts', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Renter::class);
+            $table->foreignIdFor(Gor::class);
             $table->foreignIdFor(Field::class);
             $table->foreignIdFor(DetailField::class);
+            $table->enum('days', ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu']);
             $table->string('subtotal');
             $table->timestamps();
         });
