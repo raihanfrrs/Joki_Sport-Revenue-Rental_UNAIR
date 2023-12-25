@@ -24,7 +24,6 @@ class StoreGor extends FormRequest
         return [
             'name' => 'required|unique:gors,name',
             'price' => 'required|numeric',
-            'type_duration' => 'required',
             'address' => 'required',
             'gor_image' => 'required|file|image'
         ];

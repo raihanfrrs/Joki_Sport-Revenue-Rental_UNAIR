@@ -36,7 +36,13 @@ class LoginController extends Controller
 
             activity()->causedBy(Auth::user())->log("Berhasil login");
 
-            return redirect()->intended('/');
+            return redirect()->intended('/')->with([
+                'flash-type' => 'sweetalert',
+                'case' => 'default',
+                'position' => 'top-end',
+                'type' => 'success',
+                'message' => 'Login Berhasil!'
+            ]);
         }
 
         return back()->withErrors([

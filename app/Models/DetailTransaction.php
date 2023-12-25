@@ -13,8 +13,18 @@ class DetailTransaction extends Model
         'id'
     ];
 
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class);
+    }
+
     public function field()
     {
         return $this->belongsTo(Field::class);
+    }
+
+    public function detail_field()
+    {
+        return $this->belongsTo(DetailField::class);
     }
 }

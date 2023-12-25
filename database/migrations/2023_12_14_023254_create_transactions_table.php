@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignIdFor(Renter::class);
             $table->foreignIdFor(Gor::class);
             $table->bigInteger('grand_total');
-            $table->enum('status', ['pending', 'confirm']);
+            $table->enum('status', ['pending', 'confirm'])->default('pending');
             $table->timestamps();
         });
     }
