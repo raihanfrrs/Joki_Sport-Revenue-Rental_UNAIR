@@ -9,6 +9,8 @@ Route::middleware('auth')->group(function () {
 
         Route::controller(MasterOwnerController::class)->group(function () {
             Route::get('master/renter', 'renter_index')->name('master.renter');
+            Route::get('master/renter/{renter}/edit', 'renter_edit')->name('master.renter.edit');
+            Route::patch('master/renter/{renter}', 'renter_update')->name('master.renter.update');
 
             Route::get('master/gor', 'gor_index')->name('master.gor');
             Route::get('master/gor/create', 'gor_create')->name('master.gor.create');
@@ -22,9 +24,15 @@ Route::middleware('auth')->group(function () {
             Route::get('master/field', 'field_index')->name('master.field');
             Route::get('master/field/create', 'field_create')->name('master.field.create');
             Route::post('master/field', 'field_store')->name('master.field.store');
+            Route::get('master/field/{field}/edit', 'field_edit')->name('master.field.edit');
+            Route::patch('master/field/{field}', 'field_update')->name('master.field.update');
+            Route::patch('master/field/{field}/status', 'field_update_status')->name('master.field.update.status');
+            Route::delete('master/field/{field}', 'field_destroy')->name('master.field.destroy');
+            Route::get('master/field/{field}', 'field_show')->name('master.field.show');
 
             Route::get('master/category', 'category_index')->name('master.category');
             Route::post('master/category', 'category_store')->name('master.category.store');
+            Route::get('master/category/{category}', 'category_show')->name('master.category.show');
         });
     });
 

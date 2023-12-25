@@ -1,1 +1,1 @@
-{{ $model->field_category->name }}
+<span class="d-flex justify-content-center">{{ $model->field_category->name }}</span>

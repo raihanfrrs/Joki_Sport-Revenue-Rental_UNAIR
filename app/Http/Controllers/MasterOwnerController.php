@@ -11,13 +11,30 @@ use App\Http\Requests\StoreGor;
 use App\Http\Requests\StoreField;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreFieldCategory;
+use App\Http\Requests\UpdateField;
 use App\Http\Requests\UpdateGor;
+use App\Http\Requests\UpdateRenter;
+use App\Models\DetailField;
+use App\Models\Renter;
+use App\Models\TimeField;
 
 class MasterOwnerController extends Controller
 {
     public function renter_index()
     {
         return view('pages.owner.data-master.renter.index');
+    }
+
+    public function renter_edit(Renter $renter)
+    {
+        return view('pages.owner.data-master.renter.edit', compact('renter'));
+    }
+
+    public function renter_update(UpdateRenter $request, Renter $renter)
+    {
+        if ($request->validated()) {
+            # code...
+        }
     }
 
     public function gor_index()
@@ -39,9 +56,7 @@ class MasterOwnerController extends Controller
                     'name' => $request->name,
                     'slug' => Str::slug($request->name),
                     'price' => $request->price,
-                    'type_duration' => $request->type_duration,
-                    'address' => $request->address,
-                    'standard' => $request->standard
+                    'address' => $request->address
                 ]);
 
                 if ($request->hasFile('gor_image')) {
@@ -71,8 +86,8 @@ class MasterOwnerController extends Controller
                 $gor->update([
                     'name' => $request->name,
                     'slug' => Str::slug($request->name),
-                    'gor_id' => $request->gor_id,
-                    'field_category_id' => $request->field_category_id,
+                    'price' => $request->price,
+                    'type_duration' => $request->type_duration,
                     'address' => $request->address,
                     'standard' => $request->standard
                 ]);
@@ -154,21 +169,23 @@ class MasterOwnerController extends Controller
 
     public function field_index()
     {
-        return view('pages.owner.data-master.field.index');
-    }
-
-    public function field_create()
-    {
-        return view('pages.owner.data-master.field.create', [
+        return view('pages.owner.data-master.field.index', [
             'gors' => Gor::where('owner_id', auth()->user()->owner->id)->get(),
             'field_categories' => FieldCategory::where('owner_id', auth()->user()->owner->id)->get()
         ]);
     }
 
+    public function field_create()
+    {
+        return view('pages.owner.data-master.field.create');
+    }
+
     public function field_store(StoreField $request)
     {
+        $time_fields = TimeField::all();
+
         if ($request->validated()) {
-            DB::transaction(function () use ($request) {
+            DB::transaction(function () use ($request, $time_fields) {
                 $field = Field::create([
                     'name' => $request->name,
                     'slug' => Str::slug($request->name),
@@ -176,6 +193,13 @@ class MasterOwnerController extends Controller
                     'field_category_id' => $request->field_category_id,
                     'description' => $request->description
                 ]);
+
+                foreach ($time_fields as $key => $time_field) {
+                    DetailField::create([
+                        'field_id' => $field->id,
+                        'time_field_id' => $time_field->id
+                    ]);
+                }
 
                 if ($request->hasFile('field_image')) {
                     $field->addMediaFromRequest('field_image')->withResponsiveImages()->toMediaCollection('field_image');
@@ -190,6 +214,88 @@ class MasterOwnerController extends Controller
                 'message' => 'Tambah Lapangan Berhasil!'
             ]);
         }
+    }
+
+    public function field_edit(Field $field)
+    {
+        return view('pages.owner.data-master.field.edit', [
+            'field' => $field,
+            'gors' => Gor::where('owner_id', auth()->user()->owner->id)->get(),
+            'field_categories' => FieldCategory::where('owner_id', auth()->user()->owner->id)->get()
+        ]);
+    }
+
+    public function field_update(UpdateField $request, Field $field)
+    {
+        if ($request->validated()) {
+            DB::transaction(function () use ($request, $field) {
+                $field->update([
+                    'name' => $request->name,
+                    'slug' => Str::slug($request->name),
+                    'gor_id' => $request->gor_id,
+                    'field_category_id' => $request->field_category_id,
+                    'description' => $request->description
+                ]);
+
+                if ($request->hasFile('field_image')) {
+                    $field->clearMediaCollection('field_image');
+                    $field->addMediaFromRequest('field_image')->toMediaCollection('field_image');
+                }
+            });
+
+            return redirect()->back()->with([
+                'flash-type' => 'sweetalert',
+                'case' => 'default',
+                'position' => 'center',
+                'type' => 'success',
+                'message' => 'Ubah Lapangan Berhasil!'
+            ]);
+        }
+    }
+
+    public function field_update_status(Field $field)
+    {
+        DB::transaction(function () use ($field) {
+            if ($field->status == 'active') {
+                $field->update([
+                   'status' => 'inactive' 
+                ]);
+            } else {
+                $field->update([
+                    'status' => 'active' 
+                ]);
+            }
+        });
+
+        return redirect()->back()->with([
+            'flash-type' => 'sweetalert',
+            'case' => 'default',
+            'position' => 'center',
+            'type' => 'success',
+            'message' => 'Ubah Status Lapangan Berhasil!'
+        ]);
+    }
+
+    public function field_destroy(Field $field)
+    {
+        DB::transaction(function () use ($field) {
+            $field->delete();
+        });
+
+        return redirect()->back()->with([
+            'flash-type' => 'sweetalert',
+            'case' => 'default',
+            'position' => 'center',
+            'type' => 'success',
+            'message' => 'Hapus Lapangan Berhasil!'
+        ]);
+    }
+
+    public function field_show(Field $field)
+    {
+        return view('pages.owner.data-master.field.show', [
+            'field' => $field
+        ]);
     }
 
     public function category_index()
@@ -216,5 +322,12 @@ class MasterOwnerController extends Controller
                 'message' => 'Tambah Kategori Berhasil!'
             ]);
         }
+    }
+
+    public function category_show(FieldCategory $category)
+    {
+        return view('pages.owner.data-master.category.show', [
+            'fields' => Field::where('field_category_id', $category->id)->get()
+        ]);
     }
 }
