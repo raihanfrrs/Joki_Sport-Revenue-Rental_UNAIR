@@ -1,62 +1,90 @@
 @extends('layouts.coordinator')
 
 @section('section-auth')
-<div class="container">
-        
-    <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+<!-- /Left Text -->
+<div class="d-none d-lg-flex col-lg-7 p-0">
+    <div class="auth-cover-bg auth-cover-bg-color d-flex justify-content-center align-items-center">
+    <img
+        src="{{ asset('assets/img/illustrations/boy-stand.png') }}"
+        alt="auth-login-cover"
+        class="img-fluid my-5 auth-illustration"
+        data-app-light-img="illustrations/boy-stand.png"
+        data-app-dark-img="illustrations/boy-stand.png" />
 
-                <div class="d-flex justify-content-center py-4">
-                    <a href="" class="logo d-flex align-items-center w-auto">
-                        <span class="d-none d-lg-block">Sport Venue</span>
-                    </a>
-                </div><!-- End Logo -->
+    <img
+        src="{{ asset('assets/img/illustrations/bg-shape-image-light.png') }}"
+        alt="auth-login-cover"
+        class="platform-bg"
+        data-app-light-img="illustrations/bg-shape-image-light.png"
+        data-app-dark-img="illustrations/bg-shape-image-dark.png" />
+    </div>
+</div>
+<!-- /Left Text -->
 
-                <div class="card mb-3">
+<!-- Login -->
+<div class="d-flex col-12 col-lg-5 align-items-center p-sm-5 p-4">
+    <div class="w-px-400 mx-auto">
+    <h3 class="mb-1 fw-bold">Selamat Datang di Sport Venue</h3>
+    <p class="mb-4">Silahkan Masuk ke Akun Anda</p>
 
-                    <div class="card-body">
-
-                    <div class="pt-4 pb-2">
-                        <h5 class="card-title text-center pb-0 fs-4">Login untuk Melanjutkan</h5>
-                        <p class="text-center small">Masukkan email dan password untuk login</p>
-                    </div>
-
-                    <form action="{{ route('login.coordinator.process') }}" class="row g-3 needs-validation" method="POST">
-                        @csrf
-                        <div class="col-12">
-                            <label for="email" class="form-label">Email</label>
-                            <div class="input-group">
-                                <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                <input type="email" name="email" class="form-control" id="email" required>
-                                @error('email')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" name="password" class="form-control" id="password" required>
-                            @error('password')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="col-12">
-                            <button class="btn btn-primary w-100" type="submit">Login</button>
-                        </div>
-                    </form>
-
-                    </div>
+    <form id="formAuthentication" class="mb-3" action="{{ route('login.coordinator.process') }}" method="POST">
+        @csrf
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input
+                type="text"
+                name="email"
+                class="form-control"
+                id="email"
+                placeholder="Masukkan email anda"
+                autofocus />
+            @error('email')
+                <div class="invalid-feedback">
+                    {{ $message }}
                 </div>
-
-                </div>
+            @enderror
+        </div>
+        <div class="mb-3 form-password-toggle">
+            <div class="input-group input-group-merge">
+                <input
+                type="password"
+                name="password"
+                id="password"
+                class="form-control"
+                name="password"
+                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                aria-describedby="password" />
+                <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
             </div>
         </div>
+        <button class="btn btn-primary d-grid w-100">Masuk</button>
+    </form>
 
-    </section>
+        {{-- <p class="text-center">
+            <span>New on our platform?</span>
+            <a href="auth-register-cover.html">
+            <span>Create an account</span>
+            </a>
+        </p>
 
+        <div class="divider my-4">
+            <div class="divider-text">or</div>
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <a href="javascript:;" class="btn btn-icon btn-label-facebook me-3">
+            <i class="tf-icons fa-brands fa-facebook-f fs-5"></i>
+            </a>
+
+            <a href="javascript:;" class="btn btn-icon btn-label-google-plus me-3">
+            <i class="tf-icons fa-brands fa-google fs-5"></i>
+            </a>
+
+            <a href="javascript:;" class="btn btn-icon btn-label-twitter">
+            <i class="tf-icons fa-brands fa-twitter fs-5"></i>
+            </a>
+        </div> --}}
+    </div>
 </div>
+<!-- /Login -->
 @endsection

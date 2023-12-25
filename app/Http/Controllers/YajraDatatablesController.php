@@ -18,7 +18,11 @@ class YajraDatatablesController extends Controller
                                     ->join('gors', 'transactions.gor_id', '=', 'gors.id')
                                     ->join('owners', 'gors.owner_id', '=', 'owners.id')
                                     ->where('owners.id', auth()->user()->owner->id)
+                                    ->groupBy('renters.id')
                                     ->get())
+        ->addColumn('email', function ($model) {
+            return view('components.datatables.master-renter.email-column', compact('model'))->render();
+        })
         ->addColumn('created_at', function ($model) {
             return view('components.datatables.master-renter.created-at-column', compact('model'))->render();
         })
@@ -28,7 +32,7 @@ class YajraDatatablesController extends Controller
         ->addColumn('action', function ($model) {
             return view('components.datatables.master-renter.action-column', compact('model'))->render();
         })
-        ->rawColumns(['created_at', 'status', 'action'])
+        ->rawColumns(['email', 'created_at', 'status', 'action'])
         ->make(true);
     }
 
@@ -36,8 +40,8 @@ class YajraDatatablesController extends Controller
     {
         return DataTables::of(Gor::where('owner_id', auth()->user()->owner->id)
                                     ->get())
-        ->addColumn('type_duration', function ($model) {
-            return view('components.datatables.master-gor.type-duration-column', compact('model'))->render();
+        ->addColumn('price', function ($model) {
+            return view('components.datatables.master-gor.price-column', compact('model'))->render();
         })
         ->addColumn('created_at', function ($model) {
             return view('components.datatables.master-gor.created-at-column', compact('model'))->render();
@@ -48,7 +52,7 @@ class YajraDatatablesController extends Controller
         ->addColumn('action', function ($model) {
             return view('components.datatables.master-gor.action-column', compact('model'))->render();
         })
-        ->rawColumns(['created_at', 'status', 'action'])
+        ->rawColumns(['price', 'created_at', 'status', 'action'])
         ->make(true);
     }
 
@@ -73,7 +77,7 @@ class YajraDatatablesController extends Controller
         ->addColumn('action', function ($model) {
             return view('components.datatables.master-field.action-column', compact('model'))->render();
         })
-        ->rawColumns(['created_at', 'status', 'action'])
+        ->rawColumns(['gor', 'field_category', 'description', 'created_at', 'status', 'action'])
         ->make(true);
     }
 
@@ -81,10 +85,13 @@ class YajraDatatablesController extends Controller
     {
         return DataTables::of(FieldCategory::where('owner_id', auth()->user()->owner->id)
                                         ->get())
+        ->addColumn('total_field', function ($model) {
+            return view('components.datatables.master-category.total-field-column', compact('model'))->render();
+        })
         ->addColumn('action', function ($model) {
             return view('components.datatables.master-category.action-column', compact('model'))->render();
         })
-        ->rawColumns(['action'])
+        ->rawColumns(['total_field', 'action'])
         ->make(true);
     }
 }

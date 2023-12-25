@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignIdFor(Gor::class);
             $table->foreignIdFor(Field::class);
             $table->foreignIdFor(DetailField::class);
-            $table->enum('days', ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu']);
+            $table->date('date');
             $table->string('subtotal');
             $table->timestamps();
         });

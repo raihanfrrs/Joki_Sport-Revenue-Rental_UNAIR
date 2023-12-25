@@ -36,7 +36,7 @@
                <ul class="nav navbar-nav navbar-right">
                    @if(Auth::check())
                          <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Selamat datang, {{ auth()->user()->renter->e }} <span class="caret"></span></a>
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Selamat datang, {{ auth()->user()->renter->name }} <span class="caret"></span></a>
                               <ul class="dropdown-menu" role="menu">
                                    <li><a href="" class="btnLogout-popup">Pengaturan</a></li>
                                    <li><a href="{{ route('logout') }}" class="btnLogout-popup">Logout</a></li>

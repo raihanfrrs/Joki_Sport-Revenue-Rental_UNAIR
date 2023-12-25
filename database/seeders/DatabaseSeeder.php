@@ -18,7 +18,11 @@ class DatabaseSeeder extends Seeder
             OwnerSeeder::class,
             RenterSeeder::class,
             GorSeeder::class,
-            FieldCategorySeeder::class
+            // FieldSeeder::class,
+            FieldCategorySeeder::class,
+            TimeFieldSeeder::class,
+            TransactionSeeder::class,
+            DetailTransactionSeeder::class
         ]);
     }
 }

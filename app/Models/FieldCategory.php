@@ -13,10 +13,6 @@ class FieldCategory extends Model
         'id'
     ];
 
-    public function getRouteKeyName() {
-        return 'name';
-    }
-
     public function field()
     {
         return $this->hasMany(Field::class);

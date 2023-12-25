@@ -18,9 +18,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('slug');
             $table->bigInteger('price');
-            $table->enum('type_duration', ['hours', 'in']);
             $table->longText('address');
-            $table->longText('standard')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });

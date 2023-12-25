@@ -9,6 +9,10 @@ class DetailField extends Model
 {
     use HasFactory;
 
+    protected $guarded = [
+        'id'
+    ];
+
     public function field()
     {
         return $this->belongsTo(Field::class);
@@ -22,5 +26,10 @@ class DetailField extends Model
     public function temp_cart()
     {
         return $this->hasMany(TempCart::class);
+    }
+
+    public function detail_transaction()
+    {
+        return $this->hasMany(DetailTransaction::class);
     }
 }
