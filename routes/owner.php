@@ -10,7 +10,7 @@ Route::middleware('auth')->group(function () {
         Route::controller(MasterOwnerController::class)->group(function () {
             Route::get('master/renter', 'renter_index')->name('master.renter');
             Route::get('master/renter/{renter}/edit', 'renter_edit')->name('master.renter.edit');
-            Route::patch('master/renter/{renter}', 'renter_update')->name('master.renter.update');
+            Route::patch('master/renter/{renter}/status', 'renter_update_status')->name('master.renter.update.status');
 
             Route::get('master/gor', 'gor_index')->name('master.gor');
             Route::get('master/gor/create', 'gor_create')->name('master.gor.create');
@@ -32,7 +32,10 @@ Route::middleware('auth')->group(function () {
 
             Route::get('master/category', 'category_index')->name('master.category');
             Route::post('master/category', 'category_store')->name('master.category.store');
+            Route::get('master/category/{category}/edit', 'category_edit')->name('master.category.edit');
+            Route::patch('master/category/{category}', 'category_update')->name('master.category.update');
             Route::get('master/category/{category}', 'category_show')->name('master.category.show');
+            Route::delete('master/category/{category}', 'category_destroy')->name('master.category.destroy');
         });
     });
 

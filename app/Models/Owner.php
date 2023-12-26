@@ -38,4 +38,9 @@ class Owner extends Model implements HasMedia
     {
         return $this->hasMany(FieldCategory::class);
     }
+
+    public function banned_renter()
+    {
+        return $this->hasMany(BannedRenter::class);
+    }
 }

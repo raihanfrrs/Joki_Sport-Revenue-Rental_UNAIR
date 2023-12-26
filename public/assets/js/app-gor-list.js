@@ -206,13 +206,13 @@ $(function () {
   }
 
   // Delete Record
-  $(document).on('click', '#button-delete-product', function () {
+  $(document).on('click', '#button-delete-gor', function () {
     let slug = $(this).attr('data-slug');
-    let formSelector = ".form-delete-product-" + slug;
+    let formSelector = ".form-delete-gor-" + slug;
 
     Swal.fire({
       title: 'Apakah anda yakin?',
-      text: "Anda tidak mungkin dapat mengembalikan proses ini!",
+      text: "Anda akan kehilangan seluruh data yang berkaitan dengan ini!",
       icon: 'warning',
       showCancelButton: true,
       cancelButtonText: 'Batal',
