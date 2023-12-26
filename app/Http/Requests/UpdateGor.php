@@ -30,9 +30,8 @@ class UpdateGor extends FormRequest
                 Rule::unique('gors', 'name')->ignore($gorId)
             ],
             'price' => 'required|numeric',
-            'type_duration' => 'required',
             'address' => 'required',
-            'gor_image' => 'required|file|image'
+            'gor_image' => 'file|image'
         ];
     }
 }

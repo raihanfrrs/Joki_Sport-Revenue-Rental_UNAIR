@@ -25,7 +25,7 @@ class UpdateField extends FormRequest
         return [
             'name' => 'required',
             'description' => 'required',
-            'field_image' => 'required|file|image'
+            'field_image' => 'file|image'
         ];
     }
 }
