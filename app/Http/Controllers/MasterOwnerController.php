@@ -12,8 +12,10 @@ use App\Http\Requests\StoreField;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreFieldCategory;
 use App\Http\Requests\UpdateField;
+use App\Http\Requests\UpdateFieldCategory;
 use App\Http\Requests\UpdateGor;
 use App\Http\Requests\UpdateRenter;
+use App\Models\BannedRenter;
 use App\Models\DetailField;
 use App\Models\Renter;
 use App\Models\TimeField;
@@ -30,11 +32,28 @@ class MasterOwnerController extends Controller
         return view('pages.owner.data-master.renter.edit', compact('renter'));
     }
 
-    public function renter_update(UpdateRenter $request, Renter $renter)
+    public function renter_update_status(Renter $renter)
     {
-        if ($request->validated()) {
-            # code...
-        }
+        DB::transaction(function () use ($renter) {
+            if (BannedRenter::where('owner_id', auth()->user()->owner->id)->where('renter_id', $renter->id)->count() == 0) {
+                BannedRenter::create([
+                    'owner_id' => auth()->user()->owner->id,
+                    'renter_id' => $renter->id
+                ]);
+            } else {
+                BannedRenter::where('owner_id', auth()->user()->owner->id)
+                            ->where('renter_id', $renter->id)
+                            ->delete();
+            }
+        });
+
+        return redirect()->back()->with([
+            'flash-type' => 'sweetalert',
+            'case' => 'default',
+            'position' => 'center',
+            'type' => 'success',
+            'message' => 'Ubah Status Penyewa Berhasil!'
+        ]);
     }
 
     public function gor_index()
@@ -87,9 +106,7 @@ class MasterOwnerController extends Controller
                     'name' => $request->name,
                     'slug' => Str::slug($request->name),
                     'price' => $request->price,
-                    'type_duration' => $request->type_duration,
-                    'address' => $request->address,
-                    'standard' => $request->standard
+                    'address' => $request->address
                 ]);
 
                 if ($request->hasFile('gor_image')) {
@@ -98,7 +115,7 @@ class MasterOwnerController extends Controller
                 }
             });
 
-            return redirect()->back()->with([
+            return redirect()->intended('master/gor')->with([
                 'flash-type' => 'sweetalert',
                 'case' => 'default',
                 'position' => 'center',
@@ -243,7 +260,7 @@ class MasterOwnerController extends Controller
                 }
             });
 
-            return redirect()->back()->with([
+            return redirect()->intended('master/field')->with([
                 'flash-type' => 'sweetalert',
                 'case' => 'default',
                 'position' => 'center',
@@ -324,10 +341,52 @@ class MasterOwnerController extends Controller
         }
     }
 
+    public function category_edit(FieldCategory $category)
+    {
+        return view('pages.owner.data-master.category.edit', [
+            'category' => $category
+        ]);
+    }
+
+    public function category_update(UpdateFieldCategory $request, FieldCategory $category)
+    {
+        if ($request->validated()) {
+            DB::transaction(function () use ($request, $category) {
+                $category->update([
+                    'name' => $request->name,
+                    'slug' => Str::slug($request->name)
+                ]);
+            });
+
+            return redirect()->intended('master/category')->with([
+                'flash-type' => 'sweetalert',
+                'case' => 'default',
+                'position' => 'center',
+                'type' => 'success',
+                'message' => 'Ubah Kategori Lapangan Berhasil!'
+            ]);
+        }
+    }
+
     public function category_show(FieldCategory $category)
     {
         return view('pages.owner.data-master.category.show', [
             'fields' => Field::where('field_category_id', $category->id)->get()
+        ]);
+    }
+
+    public function category_destroy(FieldCategory $category)
+    {
+        DB::transaction(function () use ($category) {
+            $category->delete();
+        });
+
+        return redirect()->back()->with([
+            'flash-type' => 'sweetalert',
+            'case' => 'default',
+            'position' => 'center',
+            'type' => 'success',
+            'message' => 'Hapus Kategori Lapangan Berhasil!'
         ]);
     }
 }
