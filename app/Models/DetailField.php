@@ -32,4 +32,9 @@ class DetailField extends Model
     {
         return $this->hasMany(DetailTransaction::class);
     }
+
+    public function temp_date()
+    {
+        return $this->hasMany(TempDate::class);
+    }
 }

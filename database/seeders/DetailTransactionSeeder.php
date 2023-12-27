@@ -18,6 +18,7 @@ class DetailTransactionSeeder extends Seeder
                 'transaction_id' => 1,
                 'field_id' => 1,
                 'detail_field_id' => 1,
+                'day_name' => 'selasa',
                 'date' => now()->format('Y-m-d'),
                 'subtotal' => 75000
             ]

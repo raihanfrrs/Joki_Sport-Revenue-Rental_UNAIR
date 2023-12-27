@@ -58,4 +58,9 @@ class Field extends Model implements HasMedia
     {
         return $this->hasMany(TempCart::class);
     }
+
+    public function temp_date()
+    {
+        return $this->hasMany(TempDate::class);
+    }
 }

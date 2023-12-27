@@ -45,9 +45,9 @@
                         @endforeach
                     </div>
                     <div class="tab-content pt-0" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active" id="day-section" role="tabpanel" aria-labelledby="day-section">
-                        <div id="data-field-schedule"></div>
-                    </div>
+                        <div class="tab-pane fade show active" id="day-section" role="tabpanel" aria-labelledby="day-section">
+                            <div id="data-field-schedule"></div>
+                        </div>
                     </div>
                 </div>
 

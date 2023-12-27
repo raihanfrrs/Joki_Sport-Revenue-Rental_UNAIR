@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignIdFor(Transaction::class);
             $table->foreignIdFor(Field::class);
             $table->foreignIdFor(DetailField::class);
+            $table->string('day_name');
             $table->date('date');
             $table->string('subtotal');
             $table->timestamps();
