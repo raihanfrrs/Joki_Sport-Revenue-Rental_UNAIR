@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Field;
 use App\Models\TempCart;
 use App\Models\TempDate;
+use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -92,6 +93,20 @@ class BookedController extends Controller
             'type' => 'success',
             'message' => 'Pesanan Berhasil!'
         ]);
-        
+    }
+
+    public function history_order_index()
+    {
+        return view('pages.renter.history.index');
+    }
+
+    public function history_order_show(Transaction $transaction)
+    {
+        return view('pages.renter.history.show', compact('transaction'));
+    }
+
+    public function history_order_waiting()
+    {
+        return view('pages.renter.payment-waiting.index');
     }
 }

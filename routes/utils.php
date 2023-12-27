@@ -9,6 +9,8 @@ Route::controller(YajraDatatablesController::class)->group(function () {
     Route::get('listGorsTable', 'gor_index');
     Route::get('listFieldsTable', 'field_index');
     Route::get('listFieldCategoriesTable', 'field_category_index');
+    Route::get('listHistoryOrderTable', 'history_order_index');
+    Route::get('listHistoryOrderWaitingTable', 'history_order_waiting');
 });
 
 Route::controller(AjaxController::class)->group(function () {

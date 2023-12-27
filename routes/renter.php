@@ -12,6 +12,9 @@ Route::middleware('auth')->group(function () {
         Route::controller(BookedController::class)->group(function () {
             Route::get('booking/{field}/form', 'booking_field_index')->name('booking.field.form');
             Route::post('booking/{field}/form', 'booking_field_store')->name('booking.field.form.store');
+            Route::get('history/order', 'history_order_index')->name('history.order');
+            Route::get('history/{transaction}/order', 'history_order_show')->name('history.order.show');
+            Route::get('history/order/waiting', 'history_order_waiting')->name('history.order.waiting');
         });
 
         Route::controller(PaymentController::class)->group(function () {

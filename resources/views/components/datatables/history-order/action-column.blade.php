@@ -1,0 +1,1 @@
+<a href="{{ route('history.order.show', $model->id) }}" class="btn btn-sm btn-success" style="color: black"><i class="fa fa-eye"></i></a>
