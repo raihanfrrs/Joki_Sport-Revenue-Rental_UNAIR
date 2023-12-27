@@ -13,4 +13,10 @@ Route::controller(YajraDatatablesController::class)->group(function () {
 
 Route::controller(AjaxController::class)->group(function () {
     Route::get('ajax/all-field-schedule/{field}/read', 'all_field_schedule');
+    Route::get('ajax/all-temp-date/{field}/read', 'all_temp_date');
+    Route::get('ajax/all-temp-date/{field}/store', 'all_temp_date_store');
+    Route::get('ajax/all-temp-date/{temp_date}/delete', 'all_temp_date_delete');
+    Route::get('ajax/all-temp-date/{field}/delete-all', 'all_temp_date_delete_all');
+    Route::get('ajax/due-date-payment/{field}/read', 'due_date_payment');
+    Route::get('ajax/due-date-payment/{field}/destroy', 'due_date_payment_destroy');
 });

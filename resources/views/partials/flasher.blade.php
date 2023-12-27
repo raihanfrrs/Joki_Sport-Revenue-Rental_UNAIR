@@ -6,7 +6,7 @@
                 icon: `{{ session('type') }}`,
                 title: `{{ session('message') }}`,
                 showConfirmButton: false,
-                timer: 1500
+                timer: 2500
             })
         </script>
     @endif
