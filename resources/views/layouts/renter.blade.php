@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
      
@@ -18,6 +16,7 @@
      <link rel="stylesheet" href="{{ asset('assets/css/renter/owl.carousel.css') }}">
      <link rel="stylesheet" href="{{ asset('assets/css/renter/owl.theme.default.min.css') }}">
      <link rel="stylesheet" href="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.css') }}" />
+     <link rel="stylesheet" href="{{ asset('vendor/datatables-3.0.0/css/dataTables.bootstrap.min.css') }}" />
 
      <!-- MAIN CSS -->
      <link rel="stylesheet" href="{{ asset('assets/css/renter/login.css') }}">
@@ -52,18 +51,19 @@
                @yield('section-renter')
           </main>
      @endif
-     
 
      <!-- SCRIPTS -->
      <script src="{{ asset('assets/js/jquery.js') }}"></script>
      <script src="{{ asset('assets/js/utils.js') }}"></script>
      <script src="{{ asset('assets/js/images.js') }}"></script>
+     <script src="{{ asset('assets/js/datatables.js') }}"></script>
      <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
      <script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
      <script src="{{ asset('assets/js/smoothscroll.js') }}"></script>
      <script src="{{ asset('assets/js/custom.js') }}"></script>
+     <script src="{{ asset('vendor/datatables-3.0.0/js/jquery.dataTables.min.js') }}"></script>
+     <script src="{{ asset('vendor/datatables-3.0.0/js/dataTables.bootstrap.min.js') }}"></script>
      <script type="module" src="{{ asset('assets/js/ionicons.esm.js') }}"></script>
      <script nomodule src="{{ asset('assets/js/ionicons.js') }}"></script>
-
 </body>
 </html>

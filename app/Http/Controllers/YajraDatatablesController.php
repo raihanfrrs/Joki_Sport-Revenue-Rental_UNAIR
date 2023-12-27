@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Field;
-use App\Models\FieldCategory;
 use App\Models\Gor;
+use App\Models\Field;
 use App\Models\Renter;
+use App\Models\TempCart;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
+use App\Models\FieldCategory;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class YajraDatatablesController extends Controller
@@ -92,6 +95,60 @@ class YajraDatatablesController extends Controller
             return view('components.datatables.master-category.action-column', compact('model'))->render();
         })
         ->rawColumns(['total_field', 'action'])
+        ->make(true);
+    }
+
+    public function history_order_index()
+    {
+        return DataTables::of(Transaction::where('renter_id', auth()->user()->renter->id)
+                                        ->get())
+        ->addColumn('gor', function ($model) {
+            return view('components.datatables.history-order.gor-column', compact('model'))->render();
+        })
+        ->addColumn('field', function ($model) {
+            return view('components.datatables.history-order.field-column', compact('model'))->render();
+        })
+        ->addColumn('created_at', function ($model) {
+            return view('components.datatables.history-order.created-at-column', compact('model'))->render();
+        })
+        ->addColumn('grand_total', function ($model) {
+            return view('components.datatables.history-order.grand-total-column', compact('model'))->render();
+        })
+        ->addColumn('status', function ($model) {
+            return view('components.datatables.history-order.status-column', compact('model'))->render();
+        })
+        ->addColumn('action', function ($model) {
+            return view('components.datatables.history-order.action-column', compact('model'))->render();
+        })
+        ->rawColumns(['gor', 'field', 'created_at', 'grand_total', 'status', 'action'])
+        ->make(true);
+    }
+
+    public function history_order_waiting()
+    {
+        return DataTables::of(TempCart::select(DB::raw('max(gor_id) as gor_id'), 'field_id', DB::raw('MAX(created_at) as created_at'), DB::raw('MAX(subtotal) as subtotal'))
+                                                            ->where('renter_id', auth()->user()->renter->id)
+                                                            ->groupBy('field_id')
+                                                            ->get())
+        ->addColumn('gor', function ($model) {
+            return view('components.datatables.payment-waiting.gor-column', compact('model'))->render();
+        })
+        ->addColumn('field', function ($model) {
+            return view('components.datatables.payment-waiting.field-column', compact('model'))->render();
+        })
+        ->addColumn('created_at', function ($model) {
+            return view('components.datatables.payment-waiting.created-at-column', compact('model'))->render();
+        })
+        ->addColumn('grand_total', function ($model) {
+            return view('components.datatables.payment-waiting.grand-total-column', compact('model'))->render();
+        })
+        ->addColumn('status', function ($model) {
+            return view('components.datatables.payment-waiting.status-column', compact('model'))->render();
+        })
+        ->addColumn('action', function ($model) {
+            return view('components.datatables.payment-waiting.action-column', compact('model'))->render();
+        })
+        ->rawColumns(['gor', 'field', 'created_at', 'grand_total', 'status', 'action'])
         ->make(true);
     }
 }

@@ -1,0 +1,1 @@
+<a href="{{ route('payment.field.waiting', $model->field->slug) }}" class="btn btn-sm btn-info" style="color: white"><i class="fa fa-money"></i></a>
