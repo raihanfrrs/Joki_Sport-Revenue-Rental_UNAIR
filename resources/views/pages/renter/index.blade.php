@@ -28,111 +28,28 @@
                    </div>
               </div>
 
-              <div class="col-md-4 col-sm-4">
-              <div class="courses-thumb courses-thumb-secondary">
-                   <div class="courses-top">
-                        <div class="courses-image">
-                             <img src="images/Lapangan-Futsal-ITS.jpg" class="img-responsive" alt="">
-                        </div>
-                        <div class="courses-date">
-                             <span title="passegengers"><i class="fa-regular fa-clock"></i> 5</span>
-                             <span title="luggages"><i class="fa fa-briefcase"></i> 4</span>
-                             <span title="doors"><i class="fa fa-sign-out"></i> 4</span>
-                             <span title="transmission"><i class="fa fa-cog"></i> A</span>
-                        </div>
-                   </div>
+              @foreach ($fields as $field)
+               <div class="col-md-4 col-sm-4">
+                    <div class="courses-thumb courses-thumb-secondary">
+                         <div class="courses-top">
+                              <div class="courses-image">
+                                   <img src="{{ $field->getFirstMediaUrl('field_image') }}" class="img-responsive" alt="">
+                              </div>
+                         </div>
 
-                   <div class="courses-detail">
-                        <h3><a href="fleet.html">GOR Futsal ITS</a></h3>
-                        <p class="lead"><small>Harga Sewa dari</small> <strong>Rp150.000</strong> <small>per jam</small></p>
-                        <p>GOR Futsal ITS beralamat di Kampus ITS, 60111, Bund. ITS, Keputih, Kec. Sukolilo, Surabaya, Jawa Timur 60117</p>
-                   </div>
+                         <div class="courses-detail">
+                              <h3><a href="fleet.html">{{ $field->name }}</a></h3>
+                              <p class="lead"><small>Harga Sewa dari</small> <strong>@rupiah($field->gor->price)</strong> <small>per jam</small></p>
+                              <p>{{ $field->name }} beralamat di {{ $field->gor->address }}</p>
+                         </div>
 
-                   @if(Auth::check())
-                        <!-- User is logged in, show a button that triggers a modal -->
-                        <div class="courses-info">
-                             <a href="{{ url('/booking') }}" class="section-btn btn btn-primary btn-block">Book Now</a>
-                        </div>
-                   @else
-                        <!-- User is not logged in, show a button that redirects to the login page -->
-                        <div class="courses-info">
-                             <a href="{{ url('/login') }}" class="section-btn btn btn-primary btn-block">Book Now</a>
-                        </div>
-                   @endif
+                         <div class="courses-info">
+                              <a href="{{ route('booking.field.form', $field->slug) }}" class="section-btn btn btn-primary btn-block">Book Now</a>
+                         </div>
 
-              </div>
-         </div>
-
-         <div class="col-md-4 col-sm-4">
-              <div class="courses-thumb courses-thumb-secondary">
-                   <div class="courses-top">
-                        <div class="courses-image">
-                             <img src="images/lapanganKoni.jpg" class="img-responsive" alt="">
-                        </div>
-                        <div class="courses-date">
-                             <span title="passegengers"><i class="fa fa-user"></i> 5</span>
-                             <span title="luggages"><i class="fa fa-briefcase"></i> 4</span>
-                             <span title="doors"><i class="fa fa-sign-out"></i> 4</span>
-                             <span title="transmission"><i class="fa fa-cog"></i> A</span>
-                        </div>
-                   </div>
-
-                   <div class="courses-detail">
-                        <h3><a href="fleet.html">Lapangan KONI Kertajaya</a></h3>
-                        <p class="lead"><small>Harga Sewa dari</small> <strong>Rp20.000</strong> <small>sekali masuk</small></p>
-                        <p>Lapangan KONI Kertajaya beralamat di Jl. Raya Kertajaya Indah No.4, RT.001/RW.09, Manyar Sabrangan, 
-                             Kec. Mulyorejo, Surabaya, Jawa Timur 60116</p>
-                   </div>
-
-                   @if(Auth::check())
-                        <!-- User is logged in, show a button that triggers a modal -->
-                        <div class="courses-info">
-                             <a href="{{ url('/booking') }}" class="section-btn btn btn-primary btn-block">Book Now</a>
-                        </div>
-                   @else
-                        <!-- User is not logged in, show a button that redirects to the login page -->
-                        <div class="courses-info">
-                             <a href="{{ url('/login') }}" class="section-btn btn btn-primary btn-block">Book Now</a>
-                        </div>
-                   @endif
-              </div>
-         </div>
-
-         <div class="col-md-4 col-sm-4">
-              <div class="courses-thumb courses-thumb-secondary">
-                   <div class="courses-top">
-                        <div class="courses-image">
-                             <img src="images/lapangan-voli-unair-1024x685.jpg" class="img-responsive" alt="">
-                        </div>
-                        <div class="courses-date">
-                             <span title="passegengers"><i class="fa fa-user"></i> 4</span>
-                             <span title="luggages"><i class="fa fa-briefcase"></i> 4</span>
-                             <span title="doors"><i class="fa fa-sign-out"></i> 4</span>
-                             <span title="transmission"><i class="fa fa-cog"></i> A</span>
-                        </div>
-                   </div>
-                   
-                   <div class="courses-detail">
-                        <h3><a href="fleet.html">Lapangan Voli Outdoor Kampus C Unair</a></h3>
-                        <p class="lead"><small>Harga Sewa dari</small> <strong>Rp75.000</strong> <small>per jam</small></p>
-                        <p>Lapangan Voli Outdoor Kampus C berada di Kampus MERR C Universitas Airlangga. Tepatnya berada dalam 
-                             komplek Student Center Kampus C. Lokasinya berada di samping gedung Kahuripan Rektorat UNAIR. 
-                             Kompleks ini dapat diakses melalui Bus Flash UNAIR dari Kampus A dan Kampus B.</p>
-                   </div>
-
-                   @if(Auth::check())
-                        <!-- User is logged in, show a button that triggers a modal -->
-                        <div class="courses-info">
-                             <a href="{{ url('/booking') }}" class="section-btn btn btn-primary btn-block">Book Now</a>
-                        </div>
-                   @else
-                        <!-- User is not logged in, show a button that redirects to the login page -->
-                        <div class="courses-info">
-                             <a href="{{ url('/login') }}" class="section-btn btn btn-primary btn-block">Book Now</a>
-                        </div>
-                   @endif
-              </div>
-         </div>
+                    </div>
+               </div>
+              @endforeach
     </div>
 </section>
 

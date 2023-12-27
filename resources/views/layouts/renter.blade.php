@@ -17,15 +17,14 @@
      <link rel="stylesheet" href="{{ asset('assets/css/renter/font-awesome.min.css') }}">
      <link rel="stylesheet" href="{{ asset('assets/css/renter/owl.carousel.css') }}">
      <link rel="stylesheet" href="{{ asset('assets/css/renter/owl.theme.default.min.css') }}">
-     <link href="{{ asset('assets/vendor/sweetalert2/css/sweetalert2.min.css') }}" rel="stylesheet">
-
+     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.css') }}" />
 
      <!-- MAIN CSS -->
      <link rel="stylesheet" href="{{ asset('assets/css/renter/login.css') }}">
      <link rel="stylesheet" href="{{ asset('assets/css/renter/style.css') }}">
 
      <!-- Vendor JS Files -->
-     <script src="{{ asset('assets/vendor/sweetalert2/js/sweetalert2.min.js') }}"></script>
+     <script src="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.js') }}"></script>
 
 </head>
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
@@ -57,6 +56,8 @@
 
      <!-- SCRIPTS -->
      <script src="{{ asset('assets/js/jquery.js') }}"></script>
+     <script src="{{ asset('assets/js/utils.js') }}"></script>
+     <script src="{{ asset('assets/js/images.js') }}"></script>
      <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
      <script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
      <script src="{{ asset('assets/js/smoothscroll.js') }}"></script>

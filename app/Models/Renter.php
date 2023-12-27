@@ -38,4 +38,9 @@ class Renter extends Model implements HasMedia
     {
         return $this->hasMany(BannedRenter::class);
     }
+
+    public function temp_date()
+    {
+        return $this->hasMany(TempDate::class);
+    }
 }
