@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OwnerSubscription;
 use App\Models\Subscription;
 use App\Models\SubscriptionTransaction;
 use App\Models\User;
@@ -24,22 +25,33 @@ class OwnerSubscriptionController extends Controller
 
     public function subscription_payment_store(Request $request, Subscription $subscription)
     {
-        $subscription_transaction = SubscriptionTransaction::create([
-            'owner_id' => auth()->user()->owner->id,
-            'subscription_id' => $subscription->id
-        ]);
-
-        if ($request->hasFile('subscription_image')) {
-            $subscription_transaction->addMediaFromRequest('subscription_image')->toMediaCollection('subscription_image');
+        if (OwnerSubscription::where('subscription_id', 2)->where('status', 'active')->count() > 0 
+                || SubscriptionTransaction::where('owner_id', auth()->user()->owner->id)->where('status', 'pending')->count() > 0) {
+            return redirect()->back()->with([
+                'flash-type' => 'sweetalert',
+                'case' => 'default',
+                'position' => 'center',
+                'type' => 'error',
+                'message' => 'Tidak dapat membeli paket langganan!'
+            ]);
+        } else {
+            $subscription_transaction = SubscriptionTransaction::create([
+                'owner_id' => auth()->user()->owner->id,
+                'subscription_id' => $subscription->id
+            ]);
+    
+            if ($request->hasFile('subscription_image')) {
+                $subscription_transaction->addMediaFromRequest('subscription_image')->toMediaCollection('subscription_image');
+            }
+    
+            return redirect()->route('subscription.payment.invoice', $subscription_transaction)->with([
+                'flash-type' => 'sweetalert',
+                'case' => 'default',
+                'position' => 'center',
+                'type' => 'success',
+                'message' => 'Pembayaran Berhasil!'
+            ]);
         }
-
-        return redirect()->route('subscription.payment.invoice', $subscription_transaction)->with([
-            'flash-type' => 'sweetalert',
-            'case' => 'default',
-            'position' => 'center',
-            'type' => 'success',
-            'message' => 'Pembayaran Berhasil!'
-        ]);
     }
 
     public function subscription_payment_invoice(SubscriptionTransaction $subscription_transaction)
@@ -48,6 +60,5 @@ class OwnerSubscriptionController extends Controller
             'subscription_transaction' => $subscription_transaction,
             'admin' => User::where('role', 'admin')->first()
         ]);
-
     }
 }

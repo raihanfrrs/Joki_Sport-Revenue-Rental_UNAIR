@@ -87,7 +87,7 @@
       </a>
     </li>
 
-    <!-- LAPORAN -->
+    <!-- SPESIAL -->
     <li class="menu-header small text-uppercase">
       <span class="menu-header-text">SPESIAL</span>
     </li>
@@ -95,6 +95,17 @@
       <a href="{{ route('subscription.pricing') }}" class="menu-link">
         <i class="menu-icon tf-icons ti ti-wallet"></i>
         <div data-i18n="Langganan">Langganan</div>
+      </a>
+    </li>
+
+    <!-- SPESIAL -->
+    <li class="menu-header small text-uppercase">
+      <span class="menu-header-text">RIWAYAT</span>
+    </li>
+    <li class="menu-item {{ request()->is('history/subscription', 'history/subscription/*') ? 'active' : '' }}">
+      <a href="{{ route('history.subscription') }}" class="menu-link">
+        <i class="menu-icon tf-icons ti ti-wallet"></i>
+        <div data-i18n="Transaksi">Transaksi</div>
       </a>
     </li>
 

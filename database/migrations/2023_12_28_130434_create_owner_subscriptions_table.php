@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignIdFor(Subscription::class);
             $table->foreignIdFor(Owner::class);
             $table->date('until')->nullable();
+            $table->enum('status', ['active', 'expired'])->default('active');
             $table->timestamps();
         });
     }

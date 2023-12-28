@@ -9,6 +9,7 @@ use App\Models\TempCart;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\FieldCategory;
+use App\Models\SubscriptionTransaction;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -177,6 +178,26 @@ class YajraDatatablesController extends Controller
             return view('components.datatables.reporting-field.action-column', compact('model'))->render();
         })
         ->rawColumns(['gor', 'field', 'renter', 'created_at', 'total', 'status', 'action'])
+        ->make(true);
+    }
+
+    public function history_subscription_order()
+    {
+        return DataTables::of(SubscriptionTransaction::where('owner_id', auth()->user()->owner->id)
+                                        ->get())
+        ->addColumn('name', function ($model) {
+            return view('components.datatables.history-subscription-order.name-column', compact('model'))->render();
+        })
+        ->addColumn('created_at', function ($model) {
+            return view('components.datatables.history-subscription-order.created-at-column', compact('model'))->render();
+        })
+        ->addColumn('status', function ($model) {
+            return view('components.datatables.history-subscription-order.status-column', compact('model'))->render();
+        })
+        ->addColumn('action', function ($model) {
+            return view('components.datatables.history-subscription-order.action-column', compact('model'))->render();
+        })
+        ->rawColumns(['name', 'created_at', 'status', 'action'])
         ->make(true);
     }
 }
