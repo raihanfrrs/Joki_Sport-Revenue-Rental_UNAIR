@@ -55,7 +55,7 @@
                                                     <td class="text-center">{{ $loop->iteration }}</td>
                                                     <td class="text-center">{{ $item->detail_field->time_field->start }} - {{ $item->detail_field->time_field->end }}</td>
                                                     <td class="text-center">{{ $item->day_name }}</td>
-                                                    <td class="text-center">{{ $item->date }}</td>
+                                                    <td class="text-center">{{ \Carbon\Carbon::parse($item->date)->format('d/m/Y') }}</td>
                                                     <td class="text-center">@rupiah($item->transaction->gor->price)</td>
                                                 </tr>
                                                 @endforeach

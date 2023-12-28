@@ -18,17 +18,19 @@ $(function () {
     headingColor = config.colors.headingColor;
   }
 
-  var dt_gor_table = $('#listGorsTable');
+  var dt_g_table = $('#listReportingFieldOrder');
 
-  if (dt_gor_table.length) {
-    dt_gor_table.DataTable({
-      ajax: "/listGorsTable",
+  if (dt_g_table.length) {
+    console.log(dt_g_table);
+    dt_g_table.DataTable({
+      ajax: "/listReportingFieldOrder",
       columns: [
         { data: '' },
-        { data: 'name' },
-        { data: 'price' },
-        { data: 'address' },
+        { data: 'gor' },
+        { data: 'field' },
+        { data: 'renter' },
         { data: 'created_at' },
+        { data: 'total' },
         { data: 'status' },
         { data: 'action' }
       ],
@@ -47,19 +49,19 @@ $(function () {
           targets: 1,
           responsivePriority: 4,
           render: function (data, type, full, meta) {
-            return full.name;
+            return full.gor;
           }
         },
         {
           targets: 2,
           render: function (data, type, full, meta) {
-            return full.price;
+            return full.field;
           }
         },
         {
           targets: 3,
           render: function (data, type, full, meta) {
-            return full.address;
+            return full.renter;
           }
         },
         {
@@ -70,6 +72,12 @@ $(function () {
         },
         {
           targets: 5,
+          render: function (data, type, full, meta) {
+            return full.total;
+          }
+        },
+        {
+          targets: 6,
           render: function (data, type, full, meta) {
             return full.status;
           }
@@ -159,14 +167,6 @@ $(function () {
               }
             }
           ]
-        },
-        {
-          text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Tambah Gor Baru</span>',
-          className: 'add-new btn btn-primary',
-          attr: {
-            'data-bs-toggle': 'offcanvas',
-            'data-bs-target': '#offcanvasAddUser'
-          }
         }
       ],
       // For responsive popup

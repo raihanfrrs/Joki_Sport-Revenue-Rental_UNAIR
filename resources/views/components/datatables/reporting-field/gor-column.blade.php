@@ -1,0 +1,1 @@
+<span class="d-flex justify-content-center">{{ $model->gor->name }}</span>
