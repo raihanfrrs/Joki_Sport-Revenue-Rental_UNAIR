@@ -17,6 +17,7 @@ use App\Http\Requests\UpdateGor;
 use App\Http\Requests\UpdateRenter;
 use App\Models\BannedRenter;
 use App\Models\DetailField;
+use App\Models\OwnerSubscription;
 use App\Models\Renter;
 use App\Models\TimeField;
 
@@ -68,6 +69,18 @@ class MasterOwnerController extends Controller
 
     public function gor_store(StoreGor $request)
     {
+        $owner_subscription = OwnerSubscription::where('owner_id', auth()->user()->owner->id)->first();
+
+        if ($owner_subscription->subscription_id == 1 && Gor::where('owner_id', auth()->user()->owner->id)->count() == 1) {
+            return redirect()->back()->with([
+                'flash-type' => 'sweetalert',
+                'case' => 'default',
+                'position' => 'center',
+                'type' => 'error',
+                'message' => 'Tambah Gor Hanya Dibatasi 1!'
+            ]);
+        }
+
         if ($request->validated()) {
             DB::transaction(function () use ($request) {
                 $gor = Gor::create([
@@ -199,6 +212,21 @@ class MasterOwnerController extends Controller
 
     public function field_store(StoreField $request)
     {
+        $owner_subscription = OwnerSubscription::where('owner_id', auth()->user()->owner->id)->first();
+
+        if ($owner_subscription->subscription_id == 1 && Field::select('fields.*')
+                                                            ->join('gors', 'fields.gor_id', '=', 'gors.id')
+                                                            ->where('gors.owner_id', auth()->user()->owner->id)
+                                                            ->count() == 1) {
+            return redirect()->back()->with([
+                'flash-type' => 'sweetalert',
+                'case' => 'default',
+                'position' => 'center',
+                'type' => 'error',
+                'message' => 'Tambah Lapangan Hanya Dibatasi 1!'
+            ]);
+        }
+
         $time_fields = TimeField::all();
 
         if ($request->validated()) {

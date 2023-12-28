@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MasterOwnerController;
+use App\Http\Controllers\OwnerHistoryController;
 use App\Http\Controllers\OwnerReportingController;
 use App\Http\Controllers\OwnerSubscriptionController;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +53,11 @@ Route::middleware('auth')->group(function () {
             Route::get('subscription/{subscription}/payment', 'subscription_payment')->name('subscription.payment');
             Route::post('subscription/{subscription}/payment', 'subscription_payment_store')->name('subscription.payment.store');
             Route::get('subscription/{subscription_transaction}/invoice', 'subscription_payment_invoice')->name('subscription.payment.invoice');
+        });
+
+        Route::controller(OwnerHistoryController::class)->group(function () {
+            Route::get('history/subscription', 'history_subscription_index')->name('history.subscription');
+            Route::get('history/subscription/{subscription_transaction}/invoice', 'history_subscription_invoice')->name('history.subscription.invoice');
         });
     });
 

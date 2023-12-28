@@ -137,7 +137,7 @@
         @if (request()->is('dashboard/*'))
             <script src="{{ asset('assets/vendor/libs/swiper/swiper.js') }}"></script>
             <script src="{{ asset('assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
-        @elseif (request()->is('master/*') || request()->is('reporting/*'))
+        @elseif (request()->is('master/*') || request()->is('reporting/*') || request()->is('history/*'))
             <script src="{{ asset('assets/vendor/libs/moment/moment.js') }}"></script>
             <script src="{{ asset('assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
             <script src="{{ asset('assets/vendor/libs/select2/select2.js') }}"></script>
@@ -174,6 +174,8 @@
                 <script src="{{ asset('assets/js/app-field-category-list.js') }}"></script>
             @elseif (request()->is('reporting/*'))
                 <script src="{{ asset('assets/js/app-reporting-field-list.js') }}"></script>
+            @elseif (request()->is('history/*'))
+                <script src="{{ asset('assets/js/app-history-subscription-order-list.js') }}"></script>
             @endif
         @endif
     @else
