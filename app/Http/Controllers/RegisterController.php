@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreRegisterUser;
 use App\Http\Requests\StoreRegistrationUser;
+use App\Models\OwnerSubscription;
 
 class RegisterController extends Controller
 {
@@ -30,11 +31,17 @@ class RegisterController extends Controller
                 ]);
 
                 if ($request->role == 'owner') {
-                    Owner::create([
+                    $owner = Owner::create([
                         'user_id' => $user->id,
                         'name' => $request->nama,
                         'slug' => Str::slug($request->name)
                     ]);
+
+                    OwnerSubscription::create([
+                        'subscription_id' => 1,
+                        'owner_id' => $owner->id
+                    ]);
+                    
                 } elseif ($request->role == 'renter') {
                     Renter::create([
                         'user_id' => $user->id,

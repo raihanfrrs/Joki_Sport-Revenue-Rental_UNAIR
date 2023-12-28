@@ -43,4 +43,9 @@ class Owner extends Model implements HasMedia
     {
         return $this->hasMany(BannedRenter::class);
     }
+
+    public function owner_subscription()
+    {
+        return $this->hasOne(OwnerSubscription::class);
+    }
 }

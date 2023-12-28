@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MasterOwnerController;
 use App\Http\Controllers\OwnerReportingController;
+use App\Http\Controllers\OwnerSubscriptionController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
@@ -44,6 +45,13 @@ Route::middleware('auth')->group(function () {
             Route::get('reporting/sales/{transaction}/invoice', 'reporting_sales_invoice')->name('reporting.sales.invoice');
             Route::patch('reporting/sales/{transaction}/invoice', 'reporting_sales_invoice_update_status')->name('reporting.sales.invoice.update.status');
             Route::get('reporting/sales/{transaction}/print', 'reporting_sales_invoice_print')->name('reporting.sales.invoice.print');
+        });
+
+        Route::controller(OwnerSubscriptionController::class)->group(function () {
+            Route::get('subscription/pricing', 'subscription_pricing_index')->name('subscription.pricing');
+            Route::get('subscription/{subscription}/payment', 'subscription_payment')->name('subscription.payment');
+            Route::post('subscription/{subscription}/payment', 'subscription_payment_store')->name('subscription.payment.store');
+            Route::get('subscription/{subscription_transaction}/invoice', 'subscription_payment_invoice')->name('subscription.payment.invoice');
         });
     });
 

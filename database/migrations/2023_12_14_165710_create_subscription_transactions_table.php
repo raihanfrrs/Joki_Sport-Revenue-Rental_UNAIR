@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Owner::class);
             $table->foreignIdFor(Subscription::class);
-            $table->enum('status', ['active', 'inactive']);
+            $table->enum('status', ['pending', 'confirm'])->default('pending');
             $table->timestamps();
         });
     }
