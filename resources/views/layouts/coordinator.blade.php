@@ -59,6 +59,11 @@
             <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/cards-advance.css') }}" />
         @elseif (request()->is('reporting/sales/*'))
             <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/app-invoice.css') }}" />
+        @elseif (request()->is('subscription/*'))
+            <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-pricing.css') }}" />
+            <link rel="stylesheet" href="{{ asset('assets/vendor/libs/rateyo/rateyo.css') }}" />
+            <link rel="stylesheet" href="{{ asset('assets/vendor/libs/bs-stepper/bs-stepper.css') }}" />
+            <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/wizard-ex-checkout.css') }}" />
         @endif
     @else
         <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-auth.css') }}" />
