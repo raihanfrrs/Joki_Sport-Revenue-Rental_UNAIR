@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MasterOwnerController;
+use App\Http\Controllers\OwnerReportingController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
@@ -36,6 +37,13 @@ Route::middleware('auth')->group(function () {
             Route::patch('master/category/{category}', 'category_update')->name('master.category.update');
             Route::get('master/category/{category}', 'category_show')->name('master.category.show');
             Route::delete('master/category/{category}', 'category_destroy')->name('master.category.destroy');
+        });
+
+        Route::controller(OwnerReportingController::class)->group(function () {
+            Route::get('reporting/sales', 'reporting_sales_index')->name('reporting.sales');
+            Route::get('reporting/sales/{transaction}/invoice', 'reporting_sales_invoice')->name('reporting.sales.invoice');
+            Route::patch('reporting/sales/{transaction}/invoice', 'reporting_sales_invoice_update_status')->name('reporting.sales.invoice.update.status');
+            Route::get('reporting/sales/{transaction}/print', 'reporting_sales_invoice_print')->name('reporting.sales.invoice.print');
         });
     });
 

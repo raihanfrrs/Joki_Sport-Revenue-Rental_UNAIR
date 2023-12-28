@@ -79,10 +79,10 @@
     <li class="menu-header small text-uppercase">
       <span class="menu-header-text">LAPORAN</span>
     </li>
-    <li class="menu-item {{ request()->is('') ? 'active' : '' }}">
-      <a href="" class="menu-link">
+    <li class="menu-item {{ request()->is('reporting/sales', 'reporting/sales/*') ? 'active' : '' }}">
+      <a href="{{ route('reporting.sales') }}" class="menu-link">
         <i class="menu-icon tf-icons ti ti-transfer-in"></i>
-        <div data-i18n="Penjualan">Penjualan</div>
+        <div data-i18n="Penyewaan">Penyewaan</div>
       </a>
     </li>
 

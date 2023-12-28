@@ -151,4 +151,32 @@ class YajraDatatablesController extends Controller
         ->rawColumns(['gor', 'field', 'created_at', 'grand_total', 'status', 'action'])
         ->make(true);
     }
+
+    public function reporting_field_order()
+    {
+        return DataTables::of(Transaction::orderBy('created_at', 'DESC')->get())
+        ->addColumn('gor', function ($model) {
+            return view('components.datatables.reporting-field.gor-column', compact('model'))->render();
+        })
+        ->addColumn('field', function ($model) {
+            return view('components.datatables.reporting-field.field-column', compact('model'))->render();
+        })
+        ->addColumn('renter', function ($model) {
+            return view('components.datatables.reporting-field.renter-column', compact('model'))->render();
+        })
+        ->addColumn('created_at', function ($model) {
+            return view('components.datatables.reporting-field.created-at-column', compact('model'))->render();
+        })
+        ->addColumn('total', function ($model) {
+            return view('components.datatables.reporting-field.grand-total-column', compact('model'))->render();
+        })
+        ->addColumn('status', function ($model) {
+            return view('components.datatables.reporting-field.status-column', compact('model'))->render();
+        })
+        ->addColumn('action', function ($model) {
+            return view('components.datatables.reporting-field.action-column', compact('model'))->render();
+        })
+        ->rawColumns(['gor', 'field', 'renter', 'created_at', 'total', 'status', 'action'])
+        ->make(true);
+    }
 }

@@ -57,10 +57,8 @@
     @auth
         @if (request()->is('/'))
             <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/cards-advance.css') }}" />
-        @elseif (request()->is('master/brand/*', 'master/influencer/*', 'master/campaign/category/*'))
-            <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-user-view.css') }}" />
-        @elseif (request()->is('admin/profile', 'brand/following', 'influencer/follower'))
-            <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-profile.css') }}" />
+        @elseif (request()->is('reporting/sales/*'))
+            <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/app-invoice.css') }}" />
         @endif
     @else
         <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-auth.css') }}" />
@@ -83,11 +81,15 @@
         <div class="layout-wrapper layout-content-navbar">
             <div class="layout-container">
     
-            @include('partials.coordinator.sidebar')
+            @if (!request()->is('reporting/sales/*/print'))
+                @include('partials.coordinator.sidebar')
+            @endif
     
                 <div class="layout-page">
                 
-                    @include('partials.coordinator.navbar')
+                    @if (!request()->is('reporting/sales/*/print'))
+                        @include('partials.coordinator.navbar')
+                    @endif
         
                     <div class="content-wrapper">
         
@@ -130,7 +132,7 @@
         @if (request()->is('dashboard/*'))
             <script src="{{ asset('assets/vendor/libs/swiper/swiper.js') }}"></script>
             <script src="{{ asset('assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
-        @elseif (request()->is('master/*'))
+        @elseif (request()->is('master/*') || request()->is('reporting/*'))
             <script src="{{ asset('assets/vendor/libs/moment/moment.js') }}"></script>
             <script src="{{ asset('assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
             <script src="{{ asset('assets/vendor/libs/select2/select2.js') }}"></script>
@@ -165,6 +167,8 @@
                 <script src="{{ asset('assets/js/app-gor-list.js') }}"></script>
                 <script src="{{ asset('assets/js/app-field-list.js') }}"></script>
                 <script src="{{ asset('assets/js/app-field-category-list.js') }}"></script>
+            @elseif (request()->is('reporting/*'))
+                <script src="{{ asset('assets/js/app-reporting-field-list.js') }}"></script>
             @endif
         @endif
     @else
