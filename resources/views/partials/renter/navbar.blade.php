@@ -28,7 +28,7 @@
                     <li class="dropdown">
                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Riwayat<span class="caret"></span></a>
                        <ul class="dropdown-menu">
-                           <li><a href="{{ route('history.order') }}">Pemesanan Berlangsung</a></li>
+                           <li><a href="{{ route('history.order') }}">Pesanan Berlangsung</a></li>
                            <li><a href="{{ route('history.order.waiting') }}">Menunggu Dibayar</a></li>
                        </ul>
                    </li>

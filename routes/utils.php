@@ -11,6 +11,7 @@ Route::controller(YajraDatatablesController::class)->group(function () {
     Route::get('listFieldCategoriesTable', 'field_category_index');
     Route::get('listHistoryOrderTable', 'history_order_index');
     Route::get('listHistoryOrderWaitingTable', 'history_order_waiting');
+    Route::get('listReportingFieldOrder', 'reporting_field_order');
 });
 
 Route::controller(AjaxController::class)->group(function () {
