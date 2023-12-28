@@ -21,8 +21,10 @@ class DatabaseSeeder extends Seeder
             // FieldSeeder::class,
             FieldCategorySeeder::class,
             TimeFieldSeeder::class,
-            TransactionSeeder::class,
-            DetailTransactionSeeder::class
+            // TransactionSeeder::class,
+            // DetailTransactionSeeder::class,
+            SubscriptionSeeder::class,
+            OwnerSubscriptionSeeder::class
         ]);
     }
 }

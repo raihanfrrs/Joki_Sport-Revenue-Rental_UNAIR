@@ -21,4 +21,9 @@ class Subscription extends Model
     {
         return $this->hasMany(SubscriptionTransaction::class);
     }
+
+    public function owner_subscription()
+    {
+        return $this->hasMany(OwnerSubscription::class);
+    }
 }

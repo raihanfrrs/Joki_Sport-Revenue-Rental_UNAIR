@@ -2,6 +2,7 @@
   <div class="app-brand demo">
     <a href="/" class="app-brand-link">
       <span class="app-brand-text demo menu-text fw-bold text-uppercase">{{ auth()->user()->role }}</span>
+      <span class="app-brand-text badge rounded-pill bg-primary">{{ auth()->user()->owner->owner_subscription->subscription->name }}</span>
     </a>
 
     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -90,8 +91,8 @@
     <li class="menu-header small text-uppercase">
       <span class="menu-header-text">SPESIAL</span>
     </li>
-    <li class="menu-item">
-      <a href="app-email.html" class="menu-link">
+    <li class="menu-item {{ request()->is('subscription/*') ? 'active' : '' }}">
+      <a href="{{ route('subscription.pricing') }}" class="menu-link">
         <i class="menu-icon tf-icons ti ti-wallet"></i>
         <div data-i18n="Langganan">Langganan</div>
       </a>
