@@ -9,6 +9,7 @@ use App\Models\TempCart;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\FieldCategory;
+use App\Models\Owner;
 use App\Models\SubscriptionTransaction;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
@@ -198,6 +199,130 @@ class YajraDatatablesController extends Controller
             return view('components.datatables.history-subscription-order.action-column', compact('model'))->render();
         })
         ->rawColumns(['name', 'created_at', 'status', 'action'])
+        ->make(true);
+    }
+
+    public function master_renter_index()
+    {
+        return DataTables::of(Renter::all())
+        ->addColumn('name', function ($model) {
+            return view('components.datatables.admin-master-renter.name-column', compact('model'))->render();
+        })
+        ->addColumn('email', function ($model) {
+            return view('components.datatables.admin-master-renter.email-column', compact('model'))->render();
+        })
+        ->addColumn('phone', function ($model) {
+            return view('components.datatables.admin-master-renter.phone-column', compact('model'))->render();
+        })
+        ->addColumn('created_at', function ($model) {
+            return view('components.datatables.admin-master-renter.created-at-column', compact('model'))->render();
+        })
+        ->addColumn('total_order', function ($model) {
+            return view('components.datatables.admin-master-renter.total-order-column', compact('model'))->render();
+        })
+        ->addColumn('status', function ($model) {
+            return view('components.datatables.admin-master-renter.status-column', compact('model'))->render();
+        })
+        ->addColumn('action', function ($model) {
+            return view('components.datatables.admin-master-renter.action-column', compact('model'))->render();
+        })
+        ->rawColumns(['name', 'username', 'email', 'phone', 'created_at', 'total_order', 'status', 'action'])
+        ->make(true);
+    }
+
+    public function master_owner_index()
+    {
+        return DataTables::of(Owner::all())
+        ->addColumn('name', function ($model) {
+            return view('components.datatables.admin-master-owner.name-column', compact('model'))->render();
+        })
+        ->addColumn('email', function ($model) {
+            return view('components.datatables.admin-master-owner.email-column', compact('model'))->render();
+        })
+        ->addColumn('phone', function ($model) {
+            return view('components.datatables.admin-master-owner.phone-column', compact('model'))->render();
+        })
+        ->addColumn('created_at', function ($model) {
+            return view('components.datatables.admin-master-owner.created-at-column', compact('model'))->render();
+        })
+        ->addColumn('total_gor', function ($model) {
+            return view('components.datatables.admin-master-owner.total-gor-column', compact('model'))->render();
+        })
+        ->addColumn('subscription', function ($model) {
+            return view('components.datatables.admin-master-owner.subscription-column', compact('model'))->render();
+        })
+        ->addColumn('status', function ($model) {
+            return view('components.datatables.admin-master-owner.status-column', compact('model'))->render();
+        })
+        ->addColumn('action', function ($model) {
+            return view('components.datatables.admin-master-owner.action-column', compact('model'))->render();
+        })
+        ->rawColumns(['name', 'username', 'email', 'phone', 'created_at', 'total_gor', 'subscription', 'status', 'action'])
+        ->make(true);
+    }
+
+    public function master_gor_index()
+    {
+        return DataTables::of(Gor::all())
+        ->addColumn('name', function ($model) {
+            return view('components.datatables.admin-master-gor.name-column', compact('model'))->render();
+        })
+        ->addColumn('owner', function ($model) {
+            return view('components.datatables.admin-master-gor.owner-column', compact('model'))->render();
+        })
+        ->addColumn('price', function ($model) {
+            return view('components.datatables.admin-master-gor.price-column', compact('model'))->render();
+        })
+        ->addColumn('address', function ($model) {
+            return view('components.datatables.admin-master-gor.address-column', compact('model'))->render();
+        })
+        ->addColumn('created_at', function ($model) {
+            return view('components.datatables.admin-master-gor.created-at-column', compact('model'))->render();
+        })
+        ->addColumn('total_field', function ($model) {
+            return view('components.datatables.admin-master-gor.total-field-column', compact('model'))->render();
+        })
+        ->addColumn('status', function ($model) {
+            return view('components.datatables.admin-master-gor.status-column', compact('model'))->render();
+        })
+        ->addColumn('action', function ($model) {
+            return view('components.datatables.admin-master-gor.action-column', compact('model'))->render();
+        })
+        ->rawColumns(['name', 'owner', 'price', 'address', 'created_at', 'total_field', 'status', 'action'])
+        ->make(true);
+    }
+
+    public function master_field_index()
+    {
+        return DataTables::of(Field::all())
+        ->addColumn('name', function ($model) {
+            return view('components.datatables.admin-master-field.name-column', compact('model'))->render();
+        })
+        ->addColumn('gor', function ($model) {
+            return view('components.datatables.admin-master-field.gor-column', compact('model'))->render();
+        })
+        ->addColumn('category', function ($model) {
+            return view('components.datatables.admin-master-field.category-column', compact('model'))->render();
+        })
+        ->addColumn('price', function ($model) {
+            return view('components.datatables.admin-master-field.price-column', compact('model'))->render();
+        })
+        ->addColumn('description', function ($model) {
+            return view('components.datatables.admin-master-field.description-column', compact('model'))->render();
+        })
+        ->addColumn('created_at', function ($model) {
+            return view('components.datatables.admin-master-field.created-at-column', compact('model'))->render();
+        })
+        ->addColumn('total_order', function ($model) {
+            return view('components.datatables.admin-master-field.total-order-column', compact('model'))->render();
+        })
+        ->addColumn('status', function ($model) {
+            return view('components.datatables.admin-master-field.status-column', compact('model'))->render();
+        })
+        ->addColumn('action', function ($model) {
+            return view('components.datatables.admin-master-field.action-column', compact('model'))->render();
+        })
+        ->rawColumns(['name', 'gor', 'category', 'price', 'description', 'created_at', 'status', 'action'])
         ->make(true);
     }
 }
