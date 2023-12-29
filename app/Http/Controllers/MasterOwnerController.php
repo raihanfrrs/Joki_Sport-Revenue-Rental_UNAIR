@@ -223,7 +223,8 @@ class MasterOwnerController extends Controller
                 'case' => 'default',
                 'position' => 'center',
                 'type' => 'error',
-                'message' => 'Tambah Lapangan Hanya Dibatasi 1!'
+                'message' => 'Tambah Lapangan
+                 Hanya Dibatasi 1!'
             ]);
         }
 

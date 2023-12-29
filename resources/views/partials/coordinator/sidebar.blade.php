@@ -2,7 +2,7 @@
   <div class="app-brand demo">
     <a href="/" class="app-brand-link">
       <span class="app-brand-text demo menu-text fw-bold text-uppercase">{{ auth()->user()->role }}</span>
-      <span class="app-brand-text badge rounded-pill bg-primary">{{ auth()->user()->owner->owner_subscription->subscription->name }}</span>
+      <span class="app-brand-text badge rounded-pill bg-primary">{{ auth()->user()->role == 'owner' ? auth()->user()->owner->owner_subscription->subscription->name : '' }}</span>
     </a>
 
     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -29,7 +29,54 @@
       </ul>
     </li>
 
-    @if (auth()->user()->role == 'owner')
+    @if (auth()->user()->role == 'admin')
+
+    <!-- MASTER -->
+    <li class="menu-header small text-uppercase">
+      <span class="menu-header-text">MASTER</span>
+    </li>
+    <li class="menu-item {{ request()->is('data-master/renter', 'data-master/renter/*', 'data-master/owner', 'data-master/owner/*') ? 'open' : '' }}">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons ti ti-users"></i>
+        <div data-i18n="Pengguna">Pengguna</div>
+        <div class="badge bg-label-primary rounded-pill ms-auto" id="label-total-brand-influencer-new-count"></div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item {{ request()->is('data-master/renter', 'data-master/renter/*') ? 'active' : '' }}">
+          <a href="{{ route('data.master.renter') }}" class="menu-link">
+            <div data-i18n="Penyewa">Penyewa</div>
+            <div class="badge bg-label-primary rounded-pill ms-auto"></div>
+          </a>
+        </li>
+        <li class="menu-item {{ request()->is('data-master/owner', 'data-master/owner/*') ? 'active' : '' }}">
+          <a href="{{ route('data.master.owner') }}" class="menu-link">
+            <div data-i18n="Pemilik">Pemilik</div>
+            <div class="badge bg-label-primary rounded-pill ms-auto"></div>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="menu-item {{ request()->is('data-master/gor', 'data-master/gor/*', 'data-master/field', 'data-master/field/*') ? 'open' : '' }}">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons ti ti-brand-codesandbox"></i>
+        <div data-i18n="Properti">Properti</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item {{ request()->is('data-master/gor', 'data-master/gor/*') ? 'active' : '' }}">
+          <a href="{{ route('data.master.gor') }}" class="menu-link">
+            <div data-i18n="Gor">Gor</div>
+          </a>
+        </li>
+        <li class="menu-item {{ request()->is('data-master/field', 'data-master/field/*') ? 'active' : '' }}">
+          <a href="{{ route('data.master.field') }}" class="menu-link">
+            <div data-i18n="Lapangan">Lapangan</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+    
+
+    @elseif (auth()->user()->role == 'owner')
         
     <!-- MASTER -->
     <li class="menu-header small text-uppercase">

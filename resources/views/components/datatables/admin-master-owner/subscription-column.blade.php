@@ -1,0 +1,1 @@
+{{ $model->owner_subscription->subscription->name }}
