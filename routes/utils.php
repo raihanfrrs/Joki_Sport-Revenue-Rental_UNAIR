@@ -12,6 +12,11 @@ Route::controller(YajraDatatablesController::class)->group(function () {
     Route::get('listHistoryOrderTable', 'history_order_index');
     Route::get('listHistoryOrderWaitingTable', 'history_order_waiting');
     Route::get('listReportingFieldOrder', 'reporting_field_order');
+    Route::get('listHistorySubscriptionOrderTable', 'history_subscription_order');
+    Route::get('listMasterRentersTable', 'master_renter_index');
+    Route::get('listMasterOwnersTable', 'master_owner_index');
+    Route::get('listMasterGorsTable', 'master_gor_index');
+    Route::get('listMasterFieldsTable', 'master_field_index');
 });
 
 Route::controller(AjaxController::class)->group(function () {
