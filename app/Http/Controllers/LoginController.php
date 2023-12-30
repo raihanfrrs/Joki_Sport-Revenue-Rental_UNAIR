@@ -29,6 +29,16 @@ class LoginController extends Controller
             ])->onlyInput('email');
         }
 
+        if ($checkUser->role == 'renter' && $checkUser->renter->status == 'inactive') {
+            return back()->withErrors([
+                'email' => 'Akun anda telah dinonaktifkan! Silahkan hubungi admin!'
+            ])->onlyInput('email');
+        } elseif ($checkUser->role == 'owner' && $checkUser->owner->status == 'inactive') {
+            return back()->withErrors([
+                'email' => 'Akun anda telah dinonaktifkan! Silahkan hubungi admin!'
+            ])->onlyInput('email');
+        }
+
         if (Auth::attempt($kredensial)) {
             $request->session()->regenerate();
 
