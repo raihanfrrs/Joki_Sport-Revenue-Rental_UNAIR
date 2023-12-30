@@ -137,7 +137,7 @@
         @if (request()->is('dashboard/*'))
             <script src="{{ asset('assets/vendor/libs/swiper/swiper.js') }}"></script>
             <script src="{{ asset('assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
-        @elseif (request()->is('master/*', 'reporting/*', 'history/*', 'data-master/*'))
+        @elseif (request()->is('master/*', 'reporting/*', 'history/*', 'data-master/*', 'admin-reporting/*'))
             <script src="{{ asset('assets/vendor/libs/moment/moment.js') }}"></script>
             <script src="{{ asset('assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
             <script src="{{ asset('assets/vendor/libs/select2/select2.js') }}"></script>
@@ -168,6 +168,8 @@
                 <script src="{{ asset('assets/js/app-master-owner-list.js') }}"></script>
                 <script src="{{ asset('assets/js/app-master-gor-list.js') }}"></script>
                 <script src="{{ asset('assets/js/app-master-field-list.js') }}"></script>
+            @elseif (request()->is('admin-reporting/*'))
+                <script src="{{ asset('assets/js/app-reporting-subscription-list.js') }}"></script>
             @endif
         @else
             @if (request()->is('/'))
