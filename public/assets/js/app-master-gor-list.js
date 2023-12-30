@@ -212,13 +212,38 @@ $(function () {
   }
 
   // Delete Record
-  $(document).on('click', '#button-delete-field', function () {
+  $(document).on('click', '#button-data-master-delete-gor', function () {
     let slug = $(this).attr('data-slug');
-    let formSelector = ".form-delete-field-" + slug;
+    let formSelector = ".form-data-master-delete-gor-" + slug;
 
     Swal.fire({
       title: 'Apakah anda yakin?',
       text: "Anda akan kehilangan seluruh data yang berkaitan dengan ini!",
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'Batal',
+      confirmButtonText: 'Ya, Hapus!',
+      customClass: {
+        confirmButton: 'btn btn-primary me-3',
+        cancelButton: 'btn btn-label-secondary'
+      },
+      buttonsStyling: false
+    }).then(function (result) {
+      if (result.isConfirmed) {
+        $(formSelector).submit();
+      }
+    });
+  });
+
+  $(document).on('click', '#button-data-master-update-gor-status', function (e) {
+    e.preventDefault();
+    let slug = $(this).attr('data-slug');
+    let name = $(this).attr('data-name');
+    let formSelector = ".form-data-master-update-gor-status-" + slug;
+
+    Swal.fire({
+      title: 'Apakah anda yakin?',
+      text: "Seluruh lapangan dari "+name+" akan dinonaktifkan!",
       icon: 'warning',
       showCancelButton: true,
       cancelButtonText: 'Batal',
