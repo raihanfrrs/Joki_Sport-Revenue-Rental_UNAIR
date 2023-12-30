@@ -28,4 +28,6 @@ Route::controller(AjaxController::class)->group(function () {
     Route::get('ajax/all-temp-date/{field}/delete-all', 'all_temp_date_delete_all');
     Route::get('ajax/due-date-payment/{field}/read', 'due_date_payment');
     Route::get('ajax/due-date-payment/{field}/destroy', 'due_date_payment_destroy');
+    Route::get('ajax/data-renter-form/{renter}/read', 'data_renter_form');
+    Route::get('ajax/data-owner-form/{owner}/read', 'data_owner_form');
 });

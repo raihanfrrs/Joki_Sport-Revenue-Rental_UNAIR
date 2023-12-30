@@ -7,6 +7,8 @@ use App\Models\Field;
 use App\Models\DetailField;
 use Illuminate\Http\Request;
 use App\Models\DetailTransaction;
+use App\Models\Owner;
+use App\Models\Renter;
 use App\Models\TempDate;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Date;
@@ -95,5 +97,15 @@ class AjaxController extends Controller
         }
 
         return $status;
+    }
+
+    public function data_renter_form(Renter $renter)
+    {
+        return view('components.data-ajax.data-form-renter-edit', compact('renter'));
+    }
+
+    public function data_owner_form(Owner $owner)
+    {
+        return view('components.data-ajax.data-form-owner-edit', compact('owner'));
     }
 }
