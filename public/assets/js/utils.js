@@ -253,3 +253,43 @@ function duePayment() {
         return;
     });
 }
+
+$(document).on('click', '#button-form-renter-edit', function () {
+    let slug = $(this).attr('data-slug');
+
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    $.post("/ajax/data-renter-form/"+slug+"/read", {
+        _method: "get"
+    })
+    .done(response => {
+        $("#data-form-renter-edit").html(response);
+    })
+    .fail(errors => {
+        return;
+    });
+});
+
+$(document).on('click', '#button-form-owner-edit', function () {
+    let slug = $(this).attr('data-slug');
+
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    $.post("/ajax/data-owner-form/"+slug+"/read", {
+        _method: "get"
+    })
+    .done(response => {
+        $("#data-form-owner-edit").html(response);
+    })
+    .fail(errors => {
+        return;
+    });
+});
