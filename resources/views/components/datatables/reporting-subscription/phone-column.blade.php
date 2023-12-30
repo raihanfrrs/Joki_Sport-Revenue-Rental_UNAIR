@@ -1,0 +1,1 @@
+{{ $model->owner->phone }}

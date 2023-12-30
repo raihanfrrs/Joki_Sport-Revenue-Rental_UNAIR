@@ -325,4 +325,35 @@ class YajraDatatablesController extends Controller
         ->rawColumns(['name', 'gor', 'category', 'price', 'description', 'created_at', 'status', 'action'])
         ->make(true);
     }
+
+    public function reporting_subscription_index()
+    {
+        return DataTables::of(SubscriptionTransaction::all())
+        ->addColumn('name', function ($model) {
+            return view('components.datatables.reporting-subscription.name-column', compact('model'))->render();
+        })
+        ->addColumn('email', function ($model) {
+            return view('components.datatables.reporting-subscription.email-column', compact('model'))->render();
+        })
+        ->addColumn('phone', function ($model) {
+            return view('components.datatables.reporting-subscription.phone-column', compact('model'))->render();
+        })
+        ->addColumn('created_at', function ($model) {
+            return view('components.datatables.reporting-subscription.created-at-column', compact('model'))->render();
+        })
+        ->addColumn('subscription', function ($model) {
+            return view('components.datatables.reporting-subscription.subscription-column', compact('model'))->render();
+        })
+        ->addColumn('grand_total', function ($model) {
+            return view('components.datatables.reporting-subscription.grand-total-column', compact('model'))->render();
+        })
+        ->addColumn('status', function ($model) {
+            return view('components.datatables.reporting-subscription.status-column', compact('model'))->render();
+        })
+        ->addColumn('action', function ($model) {
+            return view('components.datatables.reporting-subscription.action-column', compact('model'))->render();
+        })
+        ->rawColumns(['name', 'email', 'phone', 'created_at', 'subscription', 'status', 'action'])
+        ->make(true);
+    }
 }
