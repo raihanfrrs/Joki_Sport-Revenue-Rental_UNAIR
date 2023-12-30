@@ -74,7 +74,17 @@
         </li>
       </ul>
     </li>
-    
+
+    <!-- MASTER -->
+    <li class="menu-header small text-uppercase">
+      <span class="menu-header-text">LAPORAN</span>
+    </li>
+    <li class="menu-item {{ request()->is('admin-reporting/subscription', 'admin-reporting/subscription/*') ? 'active' : '' }}">
+      <a href="{{ route('admin.reporting.subscription') }}" class="menu-link">
+        <i class="menu-icon tf-icons ti ti-transfer-in"></i>
+        <div data-i18n="Langganan">Langganan</div>
+      </a>
+    </li>
 
     @elseif (auth()->user()->role == 'owner')
         

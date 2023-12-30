@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminReportingController;
 use App\Http\Controllers\MasterAdminController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,4 +24,10 @@ Route::group(['middleware' => ['cekUserLogin:admin']], function () {
         Route::delete('data-master/field/{field}', 'field_destroy')->name('data.master.field.destroy');
     });
 
+    Route::controller(AdminReportingController::class)->group(function () {
+        Route::get('admin-reporting/subscription', 'subscription_index')->name('admin.reporting.subscription');
+        Route::get('admin-reporting/subscription/{subscription_transaction}/invoice', 'subscription_invoice')->name('admin.reporting.subscription.invoice');
+        Route::get('admin-reporting/subscription/{subscription_transaction}/invoice', 'subscription_invoice')->name('admin.reporting.subscription.invoice');
+        Route::patch('admin-reporting/subscription/{subscription_transaction}/status', 'subscription_update_status')->name('admin.reporting.update.status');
+    });
 });

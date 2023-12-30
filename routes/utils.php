@@ -17,6 +17,7 @@ Route::controller(YajraDatatablesController::class)->group(function () {
     Route::get('listMasterOwnersTable', 'master_owner_index');
     Route::get('listMasterGorsTable', 'master_gor_index');
     Route::get('listMasterFieldsTable', 'master_field_index');
+    Route::get('listReportingSubscriptionTable', 'reporting_subscription_index');
 });
 
 Route::controller(AjaxController::class)->group(function () {
