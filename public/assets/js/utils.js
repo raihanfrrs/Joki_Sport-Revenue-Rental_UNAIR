@@ -1,6 +1,7 @@
 $(document).ready(() => {
     detailFieldScheduleData();
     duePayment();
+    allDashboardAnalyticData();
 
     setInterval(detailPaymentData, 60000);
     setInterval(duePayment, 60000);
@@ -293,3 +294,35 @@ $(document).on('click', '#button-form-owner-edit', function () {
         return;
     });
 });
+
+const dashboardAnalyticData = (url, targetSelectors, filter) => {
+    return $.get(url, {data: filter || ''})
+        .done(data => {
+            if (Array.isArray(targetSelectors)) {
+                targetSelectors.forEach((targetSelector, index) => {
+                    $(targetSelector).html(data[index]);
+                });
+  
+                if (Array.isArray(data['data'])) {
+                  $(data['data'][0]).addClass(data['data'][1]);
+                }
+            } else {
+                $(targetSelectors).html(data);
+            }
+        })
+        .fail((jqXHR, textStatus, errorThrown) => {
+            return;
+        });
+};
+  
+const allDashboardAnalyticData = (filter) => {
+    dashboardAnalyticData("/ajax/owner-analytic-admin", ['#value-owner-analytic', '#percent-owner-analytic']);
+    dashboardAnalyticData("/ajax/renter-analytic-admin", ['#value-renter-analytic', '#percent-renter-analytic']);
+    dashboardAnalyticData("/ajax/field-order-analytic-admin", ['#value-field-order-analytic', '#percent-field-order-analytic']);
+    dashboardAnalyticData("/ajax/field-subscription-analytic-admin", ['#value-subscription-order-analytic', '#percent-subscription-order-analytic']);
+    dashboardAnalyticData("/ajax/renter-order-analytic-owner", ['#value-renter-order-analytic', '#percent-renter-order-analytic']);
+    dashboardAnalyticData("/ajax/renter-field-order-analytic-owner", ['#value-renter-field-order-analytic', '#percent-renter-field-order-analytic']);
+    dashboardAnalyticData("/ajax/total-gor-analytic-owner", ['#value-total-gor-analytic', '#percent-total-gor-analytic']);
+    dashboardAnalyticData("/ajax/total-field-analytic-owner", ['#value-total-field-analytic', '#percent-total-field-analytic']);
+    // dashboardAnalyticData("/ajax/renter-popular-analytic", ['#value-product-popular-analytic', '#data-product-popular-analytic'], filter);
+};
