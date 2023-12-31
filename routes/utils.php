@@ -30,4 +30,12 @@ Route::controller(AjaxController::class)->group(function () {
     Route::get('ajax/due-date-payment/{field}/destroy', 'due_date_payment_destroy');
     Route::get('ajax/data-renter-form/{renter}/read', 'data_renter_form');
     Route::get('ajax/data-owner-form/{owner}/read', 'data_owner_form');
+    Route::get('ajax/owner-analytic-admin', 'data_owner_analytic_admin');
+    Route::get('ajax/renter-analytic-admin', 'data_renter_analytic_admin');
+    Route::get('ajax/field-order-analytic-admin', 'data_field_order_analytic_admin');
+    Route::get('ajax/subscription-order-analytic-admin', 'data_subscription_order_analytic_admin');
+    Route::get('ajax/renter-order-analytic-owner', 'data_renter_order_analytic_admin');
+    Route::get('ajax/renter-field-order-analytic-owner', 'data_renter_field_order_analytic_admin');
+    Route::get('ajax/total-gor-analytic-owner', 'data_total_gor_analytic_admin');
+    Route::get('ajax/total-field-analytic-owner', 'data_total_field_analytic_admin');
 });
