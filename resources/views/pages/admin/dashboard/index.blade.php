@@ -12,14 +12,14 @@
                 <div class="col-xl-6 col-md-3 col-6">
                     <div class="card">
                       <div class="card-header pb-0">
-                        <h5 class="card-title mb-0">Pengguna</h5>
+                        <h5 class="card-title mb-0">Pemilik</h5>
                         <small class="text-muted">Bulan Terakhir</small>
                       </div>
                       <div class="card-body">
                         <div id="profitLastMonth"></div>
                         <div class="d-flex justify-content-between align-items-center mt-3 gap-3">
-                          <h4 class="mb-0" id="value-user-analytic">0</h4>
-                          <small class="" id="percent-user-analytic">+0%</small>
+                          <h4 class="mb-0" id="value-owner-analytic">0</h4>
+                          <small class="" id="percent-owner-analytic">+0%</small>
                         </div>
                       </div>
                     </div>
@@ -28,14 +28,14 @@
                 <div class="col-xl-6 col-md-3 col-6">
                     <div class="card">
                       <div class="card-header pb-0">
-                        <h5 class="card-title mb-0">Keuntungan</h5>
+                        <h5 class="card-title mb-0">Penyewa</h5>
                         <small class="text-muted">Bulan Terakhir</small>
                       </div>
                       <div class="card-body">
                         <div id="profitLastMonth"></div>
                         <div class="d-flex justify-content-between align-items-center mt-3 gap-3">
-                          <h4 class="mb-0">0</h4>
-                          <small class="text-success">+0%</small>
+                          <h4 class="mb-0" id="value-renter-analytic">0</h4>
+                          <small class="text-success" id="percent-renter-analytic">+0%</small>
                         </div>
                       </div>
                     </div>
@@ -44,61 +44,39 @@
             </div>
 
             <div class="row mt-3">
-                <div class="col-lg-12 col-sm-12">
-                    <div class="card">
-                      <div class="card-header">
-                        <div class="d-flex justify-content-between">
-                          <small class="d-block mb-1 text-muted">Ringkasan Pengguna</small>
-                        </div>
-                      </div>
-                      <div class="card-body">
-                        <div class="row">
-                          <div class="col-4">
-                            <div class="d-flex gap-2 align-items-center mb-2">
-                              <span class="badge bg-label-info p-1 rounded"
-                                ><i class="ti ti-diamond"></i></span>
-                              <p class="mb-0">Langganan</p>
-                            </div>
-                            <h5 class="mb-0 pt-1 text-nowrap">0%</h5>
-                            <small class="text-muted">0</small>
-                          </div>
-                          <div class="col-4">
-                            <div class="divider divider-vertical">
-                              <div class="divider-text">
-                                <span class="badge-divider-bg bg-label-secondary">VS</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-4 text-end">
-                            <div class="d-flex gap-2 justify-content-end align-items-center mb-2">
-                              <p class="mb-0">Gratis</p>
-                              <span class="badge bg-label-primary p-1 rounded"><i class="ti ti-diamond-off"></i></span>
-                            </div>
-                            <h5 class="mb-0 pt-1 text-nowrap ms-lg-n3 ms-xl-0">0%</h5>
-                            <small class="text-muted">0</small>
-                          </div>
-                        </div>
-                        <div class="d-flex align-items-center mt-4">
-                          <div class="progress w-100" style="height: 8px">
-                            <div
-                              class="progress-bar bg-info"
-                              style="width: 70%"
-                              role="progressbar"
-                              aria-valuenow="70"
-                              aria-valuemin="0"
-                              aria-valuemax="100"></div>
-                            <div
-                              class="progress-bar bg-primary"
-                              role="progressbar"
-                              style="width: 30%"
-                              aria-valuenow="30"
-                              aria-valuemin="0"
-                              aria-valuemax="100"></div>
-                          </div>
-                        </div>
-                      </div>
+
+              <div class="col-xl-6 col-md-3 col-6">
+                <div class="card">
+                  <div class="card-header pb-0">
+                    <h5 class="card-title mb-0">Pemesanan</h5>
+                    <small class="text-muted">Bulan Terakhir</small>
+                  </div>
+                  <div class="card-body">
+                    <div id="profitLastMonth"></div>
+                    <div class="d-flex justify-content-between align-items-center mt-3 gap-3">
+                      <h4 class="mb-0" id="value-field-order-analytic">0</h4>
+                      <small class="text-success" id="percent-field-order-analytic">+0%</small>
                     </div>
+                  </div>
                 </div>
+              </div>
+
+              <div class="col-xl-6 col-md-3 col-6">
+                <div class="card">
+                  <div class="card-header pb-0">
+                    <h5 class="card-title mb-0">Berlangganan</h5>
+                    <small class="text-muted">Bulan Terakhir</small>
+                  </div>
+                  <div class="card-body">
+                    <div id="profitLastMonth"></div>
+                    <div class="d-flex justify-content-between align-items-center mt-3 gap-3">
+                      <h4 class="mb-0" id="value-subscription-order-analytic">0</h4>
+                      <small class="text-success" id="percent-subscription-order-analytic">+0%</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
         </div>
     

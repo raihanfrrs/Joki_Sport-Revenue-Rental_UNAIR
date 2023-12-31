@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Field;
-use App\Models\DetailField;
-use Illuminate\Http\Request;
-use App\Models\DetailTransaction;
 use App\Models\Owner;
 use App\Models\Renter;
 use App\Models\TempDate;
+use App\Models\DetailField;
+use Illuminate\Http\Request;
+use App\Models\DetailTransaction;
+use App\Models\Gor;
+use App\Models\SubscriptionTransaction;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Date;
 
@@ -107,5 +111,219 @@ class AjaxController extends Controller
     public function data_owner_form(Owner $owner)
     {
         return view('components.data-ajax.data-form-owner-edit', compact('owner'));
+    }
+
+    public function data_owner_analytic_admin()
+    {
+        $startDate = Carbon::now()->subDays(30)->toDateString();
+        $endDate = Carbon::now()->toDateString();
+
+        $owners = User::where('role', '=', 'owner')
+                    ->whereDate('created_at', '>=', $startDate)
+                    ->whereDate('created_at', '<=', $endDate)
+                    ->get();
+
+        $totalOwnersCount = User::where('role', '=', 'owner')->count();
+
+        $percentage = ($totalOwnersCount > 0) ? ($owners->count() / $totalOwnersCount) * 100 : 0;
+
+        $percentage = round($percentage);
+
+        return [
+            $owners->count(),
+            $percentage > 0 ? "+".$percentage."%" : '-'.$percentage."%",
+            'data' => [
+                '#percent-owner-analytic',
+                $percentage > 0 ? 'text-success' : 'text-danger'
+            ]
+        ];
+    }
+
+    public function data_renter_analytic_admin()
+    {
+        $startDate = Carbon::now()->subDays(30)->toDateString();
+        $endDate = Carbon::now()->toDateString();
+
+        $renters = User::where('role', '=', 'renter')
+                    ->whereDate('created_at', '>=', $startDate)
+                    ->whereDate('created_at', '<=', $endDate)
+                    ->get();
+
+        $totalRentersCount = User::where('role', '=', 'renter')->count();
+
+        $percentage = ($totalRentersCount > 0) ? ($renters->count() / $totalRentersCount) * 100 : 0;
+
+        $percentage = round($percentage);
+
+        return [
+            $renters->count(),
+            $percentage > 0 ? "+".$percentage."%" : '-'.$percentage."%",
+            'data' => [
+                '#percent-renter-analytic',
+                $percentage > 0 ? 'text-success' : 'text-danger'
+            ]
+        ];
+    }
+
+    public function data_field_order_analytic_admin()
+    {
+        $startDate = Carbon::now()->subDays(30)->toDateString();
+        $endDate = Carbon::now()->toDateString();
+
+        $transactions = Transaction::whereDate('created_at', '>=', $startDate)
+                            ->whereDate('created_at', '<=', $endDate)
+                            ->get();
+
+        $totalTransactionsCount = Transaction::count();
+
+        $percentage = ($totalTransactionsCount > 0) ? ($transactions->count() / $totalTransactionsCount) * 100 : 0;
+
+        $percentage = round($percentage);
+
+        return [
+            $transactions->count(),
+            $percentage > 0 ? "+".$percentage."%" : '-'.$percentage."%",
+            'data' => [
+                '#percent-field-order-analytic',
+                $percentage > 0 ? 'text-success' : 'text-danger'
+            ]
+        ];
+    }
+
+    public function data_subscription_order_analytic_admin()
+    {
+        $startDate = Carbon::now()->subDays(30)->toDateString();
+        $endDate = Carbon::now()->toDateString();
+
+        $subscriptions = SubscriptionTransaction::whereDate('created_at', '>=', $startDate)
+                            ->whereDate('created_at', '<=', $endDate)
+                            ->get();
+
+        $totalSubscriptionsCount = Transaction::count();
+
+        $percentage = ($totalSubscriptionsCount > 0) ? ($subscriptions->count() / $totalSubscriptionsCount) * 100 : 0;
+
+        $percentage = round($percentage);
+
+        return [
+            $subscriptions->count(),
+            $percentage > 0 ? "+".$percentage."%" : '-'.$percentage."%",
+            'data' => [
+                '#percent-subscription-order-analytic',
+                $percentage > 0 ? 'text-success' : 'text-danger'
+            ]
+        ];
+    }
+
+    public function data_renter_order_analytic_admin()
+    {
+        $startDate = Carbon::now()->subDays(30)->toDateString();
+        $endDate = Carbon::now()->toDateString();
+
+        $gors = Gor::select('id')->where('owner_id', auth()->user()->owner->id)->get();
+
+        $transactions = Transaction::select('renter_id')
+                                    ->whereIn('gor_id', $gors)
+                                    ->whereDate('created_at', '>=', $startDate)
+                                    ->whereDate('created_at', '<=', $endDate)
+                                    ->groupBy('renter_id')
+                                    ->get();   
+
+        $totalTransactionsCount = Transaction::whereIn('gor_id', $gors)->count();
+
+        $percentage = ($totalTransactionsCount > 0) ? ($transactions->count() / $totalTransactionsCount) * 100 : 0;
+
+        $percentage = round($percentage);
+
+        return [
+            $transactions->count(),
+            $percentage > 0 ? "+".$percentage."%" : '-'.$percentage."%",
+            'data' => [
+                '#percent-renter-order-analytic',
+                $percentage > 0 ? 'text-success' : 'text-danger'
+            ]
+        ];
+    }
+
+    public function data_renter_field_order_analytic_admin()
+    {
+        $startDate = Carbon::now()->subDays(30)->toDateString();
+        $endDate = Carbon::now()->toDateString();
+
+        $gors = Gor::select('id')->where('owner_id', auth()->user()->owner->id)->get();
+
+        $transactions = Transaction::whereIn('gor_id', $gors)
+                                    ->whereDate('created_at', '>=', $startDate)
+                                    ->whereDate('created_at', '<=', $endDate)
+                                    ->get();   
+
+        $totalTransactionsCount = Transaction::whereIn('gor_id', $gors)->count();
+
+        $percentage = ($totalTransactionsCount > 0) ? ($transactions->count() / $totalTransactionsCount) * 100 : 0;
+
+        $percentage = round($percentage);
+
+        return [
+            $transactions->count(),
+            $percentage > 0 ? "+".$percentage."%" : '-'.$percentage."%",
+            'data' => [
+                '#percent-renter-field-order-analytic',
+                $percentage > 0 ? 'text-success' : 'text-danger'
+            ]
+        ];
+    }
+
+    public function data_total_field_analytic_admin()
+    {
+        $startDate = Carbon::now()->subDays(30)->toDateString();
+        $endDate = Carbon::now()->toDateString();
+
+        $gors = Gor::select('id')->where('owner_id', auth()->user()->owner->id)->get();
+
+        $fields = Field::whereIn('gor_id', $gors)
+                        ->whereDate('created_at', '>=', $startDate)
+                        ->whereDate('created_at', '<=', $endDate)
+                        ->get();
+
+        $totalFieldsCount = Field::whereIn('gor_id', $gors)->count();
+
+        $percentage = ($totalFieldsCount > 0) ? ($fields->count() / $totalFieldsCount) * 100 : 0;
+
+        $percentage = round($percentage);
+
+        return [
+            $fields->count(),
+            $percentage > 0 ? "+".$percentage."%" : '-'.$percentage."%",
+            'data' => [
+                '#percent-total-field-analytic',
+                $percentage > 0 ? 'text-success' : 'text-danger'
+            ]
+        ];
+    }
+
+    public function data_total_gor_analytic_admin()
+    {
+        $startDate = Carbon::now()->subDays(30)->toDateString();
+        $endDate = Carbon::now()->toDateString();
+
+        $gors = Gor::where('owner_id', auth()->user()->owner->id)
+                        ->whereDate('created_at', '>=', $startDate)
+                        ->whereDate('created_at', '<=', $endDate)
+                        ->get();
+
+        $totalGorsCount = Gor::where('owner_id', auth()->user()->owner->id)->count();
+
+        $percentage = ($totalGorsCount > 0) ? ($gors->count() / $totalGorsCount) * 100 : 0;
+
+        $percentage = round($percentage);
+
+        return [
+            $gors->count(),
+            $percentage > 0 ? "+".$percentage."%" : '-'.$percentage."%",
+            'data' => [
+                '#percent-total-gor-analytic',
+                $percentage > 0 ? 'text-success' : 'text-danger'
+            ]
+        ];
     }
 }
