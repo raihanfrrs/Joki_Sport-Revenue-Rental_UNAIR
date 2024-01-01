@@ -12,6 +12,8 @@ use App\Models\DetailField;
 use Illuminate\Http\Request;
 use App\Models\DetailTransaction;
 use App\Models\Gor;
+use App\Models\OwnerSubscription;
+use App\Models\Subscription;
 use App\Models\SubscriptionTransaction;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
@@ -325,5 +327,304 @@ class AjaxController extends Controller
                 $percentage > 0 ? 'text-success' : 'text-danger'
             ]
         ];
+    }
+
+    public function data_dashboard_subscription_user_admin()
+    {   
+        $subscriptionUser = OwnerSubscription::where('subscription_id', 2)->count();
+        $nonSubscriptionUser = OwnerSubscription::where('subscription_id', 1)->count();
+
+        $data = [$nonSubscriptionUser, $subscriptionUser];
+
+        return $data;
+    }
+
+    public function data_dashboard_subscription_user_count_admin()
+    {
+        return OwnerSubscription::count();
+    }
+
+    public function data_subscription_user_count_analytic_admin()
+    {
+        $startDate = Carbon::now()->subDays(30)->toDateString();
+        $endDate = Carbon::now()->toDateString();
+
+        $subscriptions = OwnerSubscription::where('subscription_id', 2)
+                        ->whereDate('updated_at', '>=', $startDate)
+                        ->whereDate('updated_at', '<=', $endDate)
+                        ->get();
+
+        $totalSubscriptionsCount = OwnerSubscription::where('subscription_id', 2)->count();
+
+        $percentage = ($totalSubscriptionsCount > 0) ? ($subscriptions->count() / $totalSubscriptionsCount) * 100 : 0;
+
+        $percentage = round($percentage);
+
+        return [
+            $subscriptions->count(),
+            $percentage > 0 ? "+".$percentage."%" : '-'.$percentage."%",
+            'data' => [
+                '#percent-subscription-user-count-analytic',
+                $percentage > 0 ? 'text-success' : 'text-danger'
+            ]
+        ];
+    }
+
+    public function data_dashboard_user_admin()
+    {
+        $renter = User::where('role', 'renter')->count();
+        $owner = User::where('role', 'owner')->count();
+
+        $data = [$renter, $owner];
+
+        return $data;
+    }
+
+    public function data_dashboard_user_count_admin()
+    {
+        return User::where('role', '!=', 'admin')->count();
+    }
+
+    public function data_dashboard_user_count_analytic_admin()
+    {
+        $startDate = Carbon::now()->subDays(30)->toDateString();
+        $endDate = Carbon::now()->toDateString();
+
+        $users = User::where('role', '!=', 'admin')
+                    ->whereDate('updated_at', '>=', $startDate)
+                    ->whereDate('updated_at', '<=', $endDate)
+                    ->get();
+
+        $totalUsersCount = User::where('role', '!=', 'admin')->count();
+
+        $percentage = ($totalUsersCount > 0) ? ($users->count() / $totalUsersCount) * 100 : 0;
+
+        $percentage = round($percentage);
+
+        return [
+            $users->count(),
+            $percentage > 0 ? "+".$percentage."%" : '-'.$percentage."%",
+            'data' => [
+                '#percent-user-count-analytic',
+                $percentage > 0 ? 'text-success' : 'text-danger'
+            ]
+        ];
+    }
+
+    public function data_dashboard_subscription_analytic_admin()
+    {
+        $length = 12;
+        $value = 0;
+
+        $monthlyDataSubscription = SubscriptionTransaction::select(
+                DB::raw('MONTH(created_at) as month'),
+                DB::raw('COUNT(*) as count')
+            )
+            ->whereBetween('created_at', [now()->startOfYear(), now()->endOfYear()])
+            ->groupBy(DB::raw('MONTH(created_at)'))
+            ->orderByRaw('FIELD(month, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)')
+            ->pluck('count', 'month')
+            ->all();
+
+        $processedData = array_fill(1, $length, $value);
+
+        foreach ($monthlyDataSubscription as $month => $count) {
+            $processedData[$month] = $count;
+        }
+
+        return array_values($processedData);
+    }
+
+
+    public function data_dashboard_transaction_analytic_owner()
+    {
+        $length = 4;
+        $value = 0;
+
+        $gor = Gor::select('id')->where('owner_id', auth()->user()->owner->id)->get();
+
+        $transactions = Transaction::select(
+            DB::raw('WEEK(created_at, 1) as week'),
+            DB::raw('COUNT(*) as count')
+        )
+        ->whereMonth('created_at', now()->month)
+        ->whereIn('gor_id', $gor)
+        ->groupBy('week')
+        ->pluck('count', 'week')
+        ->all();
+
+        $processedData = array_fill(1, $length, $value);
+
+        foreach ($transactions as $month => $count) {
+            $processedData[$month] = $count;
+        }
+
+        return array_values($processedData);
+    }
+
+    public function data_dashboard_total_renter_analytic_owner()
+    {
+        $length = 4;
+        $value = 0;
+
+        $gor = Gor::select('id')->where('owner_id', auth()->user()->owner->id)->get();
+
+        $transactions = Transaction::select(
+            DB::raw('WEEK(created_at, 1) as week'),
+            DB::raw('COUNT(*) as count')
+        )
+        ->whereMonth('created_at', now()->month)
+        ->whereIn('gor_id', $gor)
+        ->groupBy('week')
+        ->pluck('count', 'week')
+        ->all();
+
+        $processedData = array_fill(1, $length, $value);
+
+        foreach ($transactions as $month => $count) {
+            $processedData[$month] = $count;
+        }
+
+        return array_values($processedData);
+    }
+
+    public function data_dashboard_total_transaction_field_analytic_owner()
+    {
+        $startDate = Carbon::now()->subDays(30)->toDateString();
+        $endDate = Carbon::now()->toDateString();
+
+        $gor = Gor::select('id')->where('owner_id', auth()->user()->owner->id)->get();
+
+        $transactions = Transaction::whereIn('gor_id', $gor)
+                    ->whereDate('updated_at', '>=', $startDate)
+                    ->whereDate('updated_at', '<=', $endDate)
+                    ->get();
+
+        $totalTransactionsCount = Transaction::whereIn('gor_id', $gor)->count();
+
+        $percentage = ($totalTransactionsCount > 0) ? ($transactions->count() / $totalTransactionsCount) * 100 : 0;
+
+        $percentage = round($percentage);
+
+        return [
+            $transactions->count(),
+            $percentage > 0 ? "+".$percentage."%" : '-'.$percentage."%",
+            'data' => [
+                '#percent-total-transaction-field-analytic',
+                $percentage > 0 ? 'text-success' : 'text-danger'
+            ]
+        ];
+    }
+
+    public function data_dashboard_total_transaction_renter_analytic_owner()
+    {
+        $startDate = Carbon::now()->subDays(30)->toDateString();
+        $endDate = Carbon::now()->toDateString();
+
+        $gor = Gor::select('id')->where('owner_id', auth()->user()->owner->id)->get();
+
+        $transactions = Transaction::whereIn('gor_id', $gor)
+                    ->whereDate('updated_at', '>=', $startDate)
+                    ->whereDate('updated_at', '<=', $endDate)
+                    ->get();
+
+        $totalTransactionsCount = Transaction::whereIn('gor_id', $gor)->count();
+
+        $percentage = ($totalTransactionsCount > 0) ? ($transactions->count() / $totalTransactionsCount) * 100 : 0;
+
+        $percentage = round($percentage);
+
+        return [
+            $transactions->count(),
+            $percentage > 0 ? "+".$percentage."%" : '-'.$percentage."%",
+            'data' => [
+                '#percent-total-transaction-renter-analytic',
+                $percentage > 0 ? 'text-success' : 'text-danger'
+            ]
+        ];
+    }
+
+    public function data_dashboard_total_transaction_subscription_analytic_admin()
+    {
+        $startDate = Carbon::now()->toDateString();
+        $endDate = Carbon::now()->addYear()->toDateString();
+
+        $owner_subscriptions = OwnerSubscription::whereDate('updated_at', '>=', $startDate)
+                                                ->whereDate('updated_at', '<=', $endDate)
+                                                ->get();
+
+        $totalOwnerSubscriptionsCount = OwnerSubscription::count();
+
+        $percentage = ($totalOwnerSubscriptionsCount > 0) ? ($owner_subscriptions->count() / $totalOwnerSubscriptionsCount) * 100 : 0;
+
+        $percentage = round($percentage);
+
+        return [
+            $owner_subscriptions->count(),
+            $percentage > 0 ? "+".$percentage."%" : '-'.$percentage."%",
+            'data' => [
+                '#percent-total-transaction-subscription-analytic',
+                $percentage > 0 ? 'text-success' : 'text-danger'
+            ]
+        ];
+    }
+
+    public function data_dashboard_total_income_analytic_owner()
+    {
+        $gor = Gor::select('id')->where('owner_id', auth()->user()->owner->id)->get();
+
+        $transactions = Transaction::join('gors', 'transactions.gor_id', '=', 'gors.id')->whereIn('gor_id', $gor)->sum('price');
+
+        return 'Rp' . number_format($transactions, 0, ',', '.');
+    }
+
+    public function data_dashboard_total_gor_income_analytic_owner()
+    {
+        $gor = Gor::select('id')->where('owner_id', auth()->user()->owner->id)->get();
+
+        $transactions = Transaction::join('gors', 'transactions.gor_id', '=', 'gors.id')->whereIn('gor_id', $gor)->sum('price');
+
+        return 'Rp' . number_format($transactions, 0, ',', '.');
+    }
+
+    public function data_gor_income()
+    {
+        $gor = Gor::select('id')->where('owner_id', auth()->user()->owner->id)->get();
+
+        return view('components.data-ajax.data-gor-income', [
+            'gors' => Transaction::select('gors.name', DB::raw('SUM(gors.price) as price'))
+                                ->join('gors', 'transactions.gor_id', '=', 'gors.id')
+                                ->whereIn('gor_id', $gor)
+                                ->groupBy('gors.id')
+                                ->limit(10)
+                                ->get()
+        ]);
+    }
+
+    public function data_dashboard_total_field_income_analytic_owner()
+    {
+        $gor = Gor::select('id')->where('owner_id', auth()->user()->owner->id)->get();
+
+        $transactions = Transaction::join('gors', 'transactions.gor_id', '=', 'gors.id')
+                                    ->join('fields', 'gors.id', '=', 'fields.gor_id')
+                                    ->whereIn('transactions.gor_id', $gor)
+                                    ->sum('price');
+
+        return 'Rp' . number_format($transactions, 0, ',', '.');
+    }
+
+    public function data_field_income()
+    {
+        $gor = Gor::select('id')->where('owner_id', auth()->user()->owner->id)->get();
+
+        return view('components.data-ajax.data-field-income', [
+            'fields' => Transaction::select('fields.name', DB::raw('SUM(gors.price) as price'))
+                                ->join('gors', 'transactions.gor_id', '=', 'gors.id')
+                                ->join('fields', 'gors.id', '=', 'fields.gor_id')
+                                ->whereIn('transactions.gor_id', $gor)
+                                ->groupBy('fields.id')
+                                ->limit(10)
+                                ->get()
+        ]);
     }
 }

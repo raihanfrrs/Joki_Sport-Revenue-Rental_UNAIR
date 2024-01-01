@@ -6,6 +6,8 @@
 
 (function () {
   let cardColor, labelColor, headingColor, borderColor, legendColor;
+  let generatedLeadsChart, generatedUsersChart, profitSubscriptionLastYear, profitTransactionLastMonth, totalRenterLastMonth;
+  let totalLabelValue, totalLabelUsersValue;
 
   if (isDarkStyle) {
     cardColor = config.colors_dark.cardColor;
@@ -180,8 +182,8 @@
 
   // Profit last month Line Chart
   // --------------------------------------------------------------------
-  const profitLastMonthEl = document.querySelector('#profitLastMonth'),
-    profitLastMonthConfig = {
+  const profitSubscriptionLastYearEl = document.querySelector('#profitSubscriptionLastYear'),
+    profitSubscriptionLastYearConfig = {
       chart: {
         height: 90,
         type: 'line',
@@ -217,7 +219,7 @@
       },
       series: [
         {
-          data: [0, 25, 10, 40, 25, 55]
+          data: []
         }
       ],
       tooltip: {
@@ -264,38 +266,251 @@
         hover: {
           size: 5.5
         }
-      },
-      responsive: [
-        {
-          breakpoint: 1442,
-          options: {
-            chart: {
-              height: 100
-            }
-          }
-        },
-        {
-          breakpoint: 1025,
-          options: {
-            chart: {
-              height: 86
-            }
-          }
-        },
-        {
-          breakpoint: 769,
-          options: {
-            chart: {
-              height: 93
-            }
-          }
-        }
-      ]
+      }
     };
-  if (typeof profitLastMonthEl !== undefined && profitLastMonthEl !== null) {
-    const profitLastMonth = new ApexCharts(profitLastMonthEl, profitLastMonthConfig);
-    profitLastMonth.render();
+  if (typeof profitSubscriptionLastYearEl !== undefined && profitSubscriptionLastYearEl !== null) {
+    profitSubscriptionLastYear = new ApexCharts(profitSubscriptionLastYearEl, profitSubscriptionLastYearConfig);
+    profitSubscriptionLastYear.render();
   }
+
+  const updateSubscriptionChart = (newData) => {
+    if (profitSubscriptionLastYear) {
+      profitSubscriptionLastYear.updateSeries([{ data: newData }]);
+    }
+  };
+
+  // Example AJAX call
+  const fetchDataSubscription = () => {
+    $.get('/ajax/dashboard-subscription', {})
+      .done((data) => {
+        updateSubscriptionChart(data);
+      })
+      .fail((jqXHR, textStatus, errorThrown) => {
+        console.error('AJAX request failed:', textStatus, errorThrown);
+      });
+  };
+
+  fetchDataSubscription();
+
+  const profitTransactionLastMonthEl = document.querySelector('#profitTransactionLastMonth'),
+    profitTransactionLastMonthConfig = {
+      chart: {
+        height: 90,
+        type: 'line',
+        parentHeightOffset: 0,
+        toolbar: {
+          show: false
+        }
+      },
+      grid: {
+        borderColor: borderColor,
+        strokeDashArray: 6,
+        xaxis: {
+          lines: {
+            show: true,
+            colors: '#000'
+          }
+        },
+        yaxis: {
+          lines: {
+            show: false
+          }
+        },
+        padding: {
+          top: -18,
+          left: -4,
+          right: 7,
+          bottom: -10
+        }
+      },
+      colors: [config.colors.info],
+      stroke: {
+        width: 2
+      },
+      series: [
+        {
+          data: []
+        }
+      ],
+      tooltip: {
+        shared: false,
+        intersect: true,
+        x: {
+          show: false
+        }
+      },
+      xaxis: {
+        labels: {
+          show: false
+        },
+        axisTicks: {
+          show: false
+        },
+        axisBorder: {
+          show: false
+        }
+      },
+      yaxis: {
+        labels: {
+          show: false
+        }
+      },
+      tooltip: {
+        enabled: false
+      },
+      markers: {
+        size: 3.5,
+        fillColor: config.colors.info,
+        strokeColors: 'transparent',
+        strokeWidth: 3.2,
+        discrete: [
+          {
+            seriesIndex: 0,
+            dataPointIndex: 5,
+            fillColor: cardColor,
+            strokeColor: config.colors.info,
+            size: 5,
+            shape: 'circle'
+          }
+        ],
+        hover: {
+          size: 5.5
+        }
+      }
+    };
+  if (typeof profitTransactionLastMonthEl !== undefined && profitTransactionLastMonthEl !== null) {
+    profitTransactionLastMonth = new ApexCharts(profitTransactionLastMonthEl, profitTransactionLastMonthConfig);
+    profitTransactionLastMonth.render();
+  }
+
+  const updateTransactionChart = (newData) => {
+    if (profitTransactionLastMonth) {
+      profitTransactionLastMonth.updateSeries([{ data: newData }]);
+    }
+  };
+
+  // Example AJAX call
+  const fetchDataTransaction = () => {
+    $.get('/ajax/dashboard-transaction', {})
+      .done((data) => {
+        updateTransactionChart(data);
+      })
+      .fail((jqXHR, textStatus, errorThrown) => {
+        console.error('AJAX request failed:', textStatus, errorThrown);
+      });
+  };
+
+  fetchDataTransaction();
+
+  const totalRenterLastMonthEl = document.querySelector('#totalRenterLastMonth'),
+    totalRenterLastMonthConfig = {
+      chart: {
+        height: 90,
+        type: 'line',
+        parentHeightOffset: 0,
+        toolbar: {
+          show: false
+        }
+      },
+      grid: {
+        borderColor: borderColor,
+        strokeDashArray: 6,
+        xaxis: {
+          lines: {
+            show: true,
+            colors: '#000'
+          }
+        },
+        yaxis: {
+          lines: {
+            show: false
+          }
+        },
+        padding: {
+          top: -18,
+          left: -4,
+          right: 7,
+          bottom: -10
+        }
+      },
+      colors: [config.colors.info],
+      stroke: {
+        width: 2
+      },
+      series: [
+        {
+          data: []
+        }
+      ],
+      tooltip: {
+        shared: false,
+        intersect: true,
+        x: {
+          show: false
+        }
+      },
+      xaxis: {
+        labels: {
+          show: false
+        },
+        axisTicks: {
+          show: false
+        },
+        axisBorder: {
+          show: false
+        }
+      },
+      yaxis: {
+        labels: {
+          show: false
+        }
+      },
+      tooltip: {
+        enabled: false
+      },
+      markers: {
+        size: 3.5,
+        fillColor: config.colors.info,
+        strokeColors: 'transparent',
+        strokeWidth: 3.2,
+        discrete: [
+          {
+            seriesIndex: 0,
+            dataPointIndex: 5,
+            fillColor: cardColor,
+            strokeColor: config.colors.info,
+            size: 5,
+            shape: 'circle'
+          }
+        ],
+        hover: {
+          size: 5.5
+        }
+      }
+    };
+  if (typeof totalRenterLastMonthEl !== undefined && totalRenterLastMonthEl !== null) {
+    totalRenterLastMonth = new ApexCharts(totalRenterLastMonthEl, totalRenterLastMonthConfig);
+    totalRenterLastMonth.render();
+  }
+
+  const updateTotalRenterChart = (newData) => {
+    if (totalRenterLastMonth) {
+      totalRenterLastMonth.updateSeries([{ data: newData }]);
+    }
+  };
+
+  // Example AJAX call
+  const fetchDataTotalRenter = () => {
+    $.get('/ajax/dashboard-total-renter', {})
+      .done((data) => {
+        updateTotalRenterChart(data);
+      })
+      .fail((jqXHR, textStatus, errorThrown) => {
+        console.error('AJAX request failed:', textStatus, errorThrown);
+      });
+  };
+
+  fetchDataTotalRenter();
 
   // Generated Leads Chart
   // --------------------------------------------------------------------
@@ -307,8 +522,8 @@
         parentHeightOffset: 0,
         type: 'donut'
       },
-      labels: ['Electronic', 'Sports', 'Decor', 'Fashion'],
-      series: [45, 58, 30, 50],
+      labels: ['Gratis', 'Berbayar'],
+      series: [0,0],
       colors: [
         chartColors.donut.series1,
         chartColors.donut.series2,
@@ -372,45 +587,170 @@
                 label: 'Total',
                 fontFamily: 'Public Sans',
                 formatter: function (w) {
-                  return '184';
+                  return totalLabelValue;
                 }
               }
             }
           }
         }
+      }
+    };
+  if (typeof generatedLeadsChartEl !== undefined && generatedLeadsChartEl !== null) {
+    generatedLeadsChart = new ApexCharts(generatedLeadsChartEl, generatedLeadsChartConfig);
+    generatedLeadsChart.render();
+  }
+
+  function fetchDataSubscriptionUser() {
+    $.get('/ajax/dashboard-subscription-user')
+      .done(function(data) {
+        updateSubscriptionUserChart(data);
+      })
+      .fail(function(jqXHR, textStatus, errorThrown) {
+        console.error('AJAX request failed:', textStatus, errorThrown);
+      });
+  }
+  
+  function updateSubscriptionUserChart(newData) {
+    if (generatedLeadsChart) {
+      generatedLeadsChart.updateSeries(newData);
+    }
+  }
+
+  function fetchDataSubscriptionUserCount() {
+    $.get('/ajax/dashboard-subscription-user-count')
+      .done(function(data) {
+        updateTotalLabelValue(data);
+      })
+      .fail(function(jqXHR, textStatus, errorThrown) {
+        console.error('AJAX request failed:', textStatus, errorThrown);
+      });
+  }
+
+  function updateTotalLabelValue(newTotalValue) {
+    totalLabelValue = newTotalValue;
+  }
+
+  fetchDataSubscriptionUserCount();
+  fetchDataSubscriptionUser();
+
+  const generatedUsersChartEl = document.querySelector('#generatedUsersChart'),
+    generatedUsersChartConfig = {
+      chart: {
+        height: 147,
+        width: 130,
+        parentHeightOffset: 0,
+        type: 'donut'
       },
-      responsive: [
-        {
-          breakpoint: 1025,
-          options: {
-            chart: {
-              height: 172,
-              width: 160
-            }
+      labels: ['Penyewa', 'Pemilik'],
+      series: [0,0],
+      colors: [
+        chartColors.donut.series1,
+        chartColors.donut.series2,
+        chartColors.donut.series3,
+        chartColors.donut.series4
+      ],
+      stroke: {
+        width: 0
+      },
+      dataLabels: {
+        enabled: false,
+        formatter: function (val, opt) {
+          return parseInt(val) + '%';
+        }
+      },
+      legend: {
+        show: false
+      },
+      tooltip: {
+        theme: false
+      },
+      grid: {
+        padding: {
+          top: 15,
+          right: -20,
+          left: -20
+        }
+      },
+      states: {
+        hover: {
+          filter: {
+            type: 'none'
           }
-        },
-        {
-          breakpoint: 769,
-          options: {
-            chart: {
-              height: 178
-            }
-          }
-        },
-        {
-          breakpoint: 426,
-          options: {
-            chart: {
-              height: 147
+        }
+      },
+      plotOptions: {
+        pie: {
+          donut: {
+            size: '70%',
+            labels: {
+              show: true,
+              value: {
+                fontSize: '1.375rem',
+                fontFamily: 'Public Sans',
+                color: headingColor,
+                fontWeight: 600,
+                offsetY: -15,
+                formatter: function (val) {
+                  return parseInt(val) + '%';
+                }
+              },
+              name: {
+                offsetY: 20,
+                fontFamily: 'Public Sans'
+              },
+              total: {
+                show: true,
+                showAlways: true,
+                color: config.colors.success,
+                fontSize: '.8125rem',
+                label: 'Total',
+                fontFamily: 'Public Sans',
+                formatter: function (w) {
+                  return totalLabelUsersValue;
+                }
+              }
             }
           }
         }
-      ]
+      }
     };
-  if (typeof generatedLeadsChartEl !== undefined && generatedLeadsChartEl !== null) {
-    const generatedLeadsChart = new ApexCharts(generatedLeadsChartEl, generatedLeadsChartConfig);
-    generatedLeadsChart.render();
+  if (typeof generatedUsersChartEl !== undefined && generatedUsersChartEl !== null) {
+    generatedUsersChart = new ApexCharts(generatedUsersChartEl, generatedUsersChartConfig);
+    generatedUsersChart.render();
   }
+
+  function fetchDataUser() {
+    $.get('/ajax/dashboard-user')
+      .done(function(data) {
+        updateUserChart(data);
+      })
+      .fail(function(jqXHR, textStatus, errorThrown) {
+        console.error('AJAX request failed:', textStatus, errorThrown);
+      });
+  }
+  
+  function updateUserChart(newData) {
+    if (generatedUsersChart) {
+      generatedUsersChart.updateSeries(newData);
+    }
+  }
+
+  function fetchDataUserCount() {
+    $.get('/ajax/dashboard-user-count')
+      .done(function(data) {
+        updateTotalLabelUsersValue(data);
+      })
+      .fail(function(jqXHR, textStatus, errorThrown) {
+        console.error('AJAX request failed:', textStatus, errorThrown);
+      });
+  }
+
+  function updateTotalLabelUsersValue(newTotalValue) {
+    totalLabelUsersValue = newTotalValue;
+  }
+
+  fetchDataUserCount();
+  fetchDataUser();
 
   // Total Revenue Report Chart - Bar Chart
   // --------------------------------------------------------------------

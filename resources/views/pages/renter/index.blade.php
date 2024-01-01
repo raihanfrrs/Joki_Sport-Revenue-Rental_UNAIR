@@ -67,7 +67,7 @@
                    <div class="courses-thumb courses-thumb-secondary">
                              <div class="courses-top">
                                   <div class="courses-image">
-                                       <img src="images/blog-1.jpg" class="img-responsive" alt="">
+                                       <img src="{{ asset('assets/img/blog-1.jpg') }}" class="img-responsive" alt="">
                                   </div>
                                   <div class="courses-date">
                                        <span title="Author"><i class="fa fa-user"></i> Corry Magdalena</span>
@@ -91,7 +91,7 @@
                    <div class="courses-thumb courses-thumb-secondary">
                              <div class="courses-top">
                                   <div class="courses-image">
-                                       <img src="images/blog-2.jpg" class="img-responsive" alt="">
+                                       <img src="{{ asset('assets/img/blog-2.jpg') }}" class="img-responsive" alt="">
                                   </div>
                                   <div class="courses-date">
                                        <span title="Author"><i class="fa fa-user"></i> Kurnia Bahari</span>
@@ -114,7 +114,7 @@
               <div class="courses-thumb courses-thumb-secondary">
                              <div class="courses-top">
                                   <div class="courses-image">
-                                       <img src="images/blog-5.jpeg" class="img-responsive" alt="">
+                                       <img src="{{ asset('assets/img/blog-5.jpeg') }}" class="img-responsive" alt="">
                                   </div>
                                   <div class="courses-date">
                                        <span title="Author"><i class="fa fa-user"></i>Mercy Raya</span>
@@ -149,7 +149,7 @@
                         <div class="col-md-4 col-sm-4">
                              <div class="item">
                                   <div class="tst-image">
-                                       <img src="images/tst-image-1-200x216.jpg" class="img-responsive" alt="">
+                                       <img src="{{ asset('assets/img/tst-image-1-200x216.jpg') }}" class="img-responsive" alt="">
                                   </div>
                                   <div class="tst-author">
                                        <h4>Jackson</h4>
@@ -169,7 +169,7 @@
                         <div class="col-md-4 col-sm-4">
                              <div class="item">
                                   <div class="tst-image">
-                                       <img src="images/tst-image-2-200x216.jpg" class="img-responsive" alt="">
+                                       <img src="{{ asset('assets/img/tst-image-2-200x216.jpg') }}" class="img-responsive" alt="">
                                   </div>
                                   <div class="tst-author">
                                        <h4>Camila</h4>
@@ -187,7 +187,7 @@
                         <div class="col-md-4 col-sm-4">
                              <div class="item">
                                   <div class="tst-image">
-                                       <img src="images/tst-image-3-200x216.jpg" class="img-responsive" alt="">
+                                       <img src="{{ asset('assets/img/tst-image-3-200x216.jpg') }}" class="img-responsive" alt="">
                                   </div>
                                   <div class="tst-author">
                                        <h4>Barbie</h4>
@@ -206,7 +206,7 @@
                         <div class="col-md-4 col-sm-4">
                              <div class="item">
                                   <div class="tst-image">
-                                       <img src="images/tst-image-4-200x216.jpg" class="img-responsive" alt="">
+                                       <img src="{{ asset('assets/img/tst-image-4-200x216.jpg') }}" class="img-responsive" alt="">
                                   </div>
                                   <div class="tst-author">
                                        <h4>Andrio</h4>
