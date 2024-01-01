@@ -163,7 +163,10 @@
     <!-- Page JS -->
     @auth
         @if (auth()->user()->role == 'admin')
-            @if (request()->is('data-master/*'))
+            @if (request()->is('/'))
+                <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
+                <script src="{{ asset('assets/js/dashboards-ecommerce.js') }}"></script>
+            @elseif (request()->is('data-master/*'))
                 <script src="{{ asset('assets/js/app-master-renter-list.js') }}"></script>
                 <script src="{{ asset('assets/js/app-master-owner-list.js') }}"></script>
                 <script src="{{ asset('assets/js/app-master-gor-list.js') }}"></script>
@@ -174,6 +177,7 @@
         @else
             @if (request()->is('/'))
                 <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
+                <script src="{{ asset('assets/js/dashboards-ecommerce.js') }}"></script>
             @elseif (request()->is('master/*'))
                 <script src="{{ asset('assets/js/app-renter-list.js') }}"></script>
                 <script src="{{ asset('assets/js/app-gor-list.js') }}"></script>

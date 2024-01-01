@@ -324,5 +324,15 @@ const allDashboardAnalyticData = (filter) => {
     dashboardAnalyticData("/ajax/renter-field-order-analytic-owner", ['#value-renter-field-order-analytic', '#percent-renter-field-order-analytic']);
     dashboardAnalyticData("/ajax/total-gor-analytic-owner", ['#value-total-gor-analytic', '#percent-total-gor-analytic']);
     dashboardAnalyticData("/ajax/total-field-analytic-owner", ['#value-total-field-analytic', '#percent-total-field-analytic']);
+    dashboardAnalyticData("/ajax/subscription-user-count-analytic-admin", ['#value-subscription-user-count-analytic', '#percent-subscription-user-count-analytic']);
+    dashboardAnalyticData("/ajax/dashboard-user-count-analytic-admin", ['#value-user-count-analytic', '#percent-user-count-analytic']);
+    dashboardAnalyticData("/ajax/dashboard-total-transaction-field-analytic-owner", ['#value-total-transaction-field-analytic', '#percent-total-transaction-field-analytic']);
+    dashboardAnalyticData("/ajax/dashboard-total-transaction-renter-analytic-owner", ['#value-total-transaction-renter-analytic', '#percent-total-transaction-renter-analytic']);
+    dashboardAnalyticData("/ajax/dashboard-total-transaction-subscription-analytic-admin", ['#value-total-transaction-subscription-analytic', '#percent-total-transaction-subscription-analytic']);
+    dashboardAnalyticData("/ajax/dashboard-total-income-analytic-owner", '#value-total-income-analytic');
+    dashboardAnalyticData("/ajax/dashboard-total-gor-income-analytic-owner", '#value-total-gor-income-analytic');
+    dashboardAnalyticData("/ajax/data-gor-income", '#data-gor-income');
+    dashboardAnalyticData("/ajax/dashboard-total-field-income-analytic-owner", '#value-total-field-income-analytic');
+    dashboardAnalyticData("/ajax/data-field-income", '#data-field-income');
     // dashboardAnalyticData("/ajax/renter-popular-analytic", ['#value-product-popular-analytic', '#data-product-popular-analytic'], filter);
 };
