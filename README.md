@@ -46,17 +46,5 @@
 11. masuk admin dengan :
 
     ```
-    Username : rehanfarras76@gmail.com
-    Password : test123
-
-12. masuk owner dengan :
-
-    ```
-    Username : unairsurabaya76@gmail.com
-    Password : test123
-
-13. masuk renter dengan :
-
-    ```
-    Username : adammaurizio76@gmail.com
+    Username : admin001@gmail.com
     Password : test123
