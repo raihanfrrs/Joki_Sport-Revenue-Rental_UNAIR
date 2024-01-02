@@ -87,19 +87,24 @@
         <div class="col-xl-3 col-md-4 col-12 invoice-actions">
           <div class="card">
             <div class="card-body">
-                <form action="{{ route('reporting.sales.invoice.update.status', $transaction->id) }}" method="post">
-                    @csrf
-                    @method('PATCH')
-                    <button
-                        type="submit"
-                        class="btn btn-{{ $transaction->status == 'pending' ? 'primary' : 'danger' }} d-grid w-100 mb-2"
-                        data-bs-toggle="offcanvas"
-                        data-bs-target="#sendInvoiceOffcanvas">
-                        <span class="d-flex align-items-center justify-content-center text-nowrap"
-                        ><i class="ti ti-send ti-xs me-1"></i>{{ $transaction->status == 'pending' ? 'Konfirmasi' : 'Pending' }}</span
-                        >
-                    </button>
-                </form>
+              <p>Bukti Pembayaran:</p>
+              <img src="{{ $transaction->getFirstMediaUrl('transaction_image') }}" class="img-fluid mb-3">
+              <hr class="my-0"/>
+              @if ($transaction->status == 'pending')
+              <form action="{{ route('reporting.sales.invoice.update.status', $transaction->id) }}" method="post">
+                @csrf
+                @method('PATCH')
+                <button
+                    type="submit"
+                    class="btn btn-{{ $transaction->status == 'pending' ? 'primary' : 'danger' }} d-grid w-100 mb-2"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#sendInvoiceOffcanvas">
+                    <span class="d-flex align-items-center justify-content-center text-nowrap"
+                    ><i class="ti ti-send ti-xs me-1"></i>{{ $transaction->status == 'pending' ? 'Konfirmasi' : 'Pending' }}</span
+                    >
+                </button>
+              </form>
+              @endif
               <a
                 class="btn btn-label-secondary d-grid w-100 mb-2"
                 target="_blank"

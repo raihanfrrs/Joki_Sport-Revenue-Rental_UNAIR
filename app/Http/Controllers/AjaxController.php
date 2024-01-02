@@ -573,9 +573,11 @@ class AjaxController extends Controller
     {
         $gor = Gor::select('id')->where('owner_id', auth()->user()->owner->id)->get();
 
-        $transactions = Transaction::join('gors', 'transactions.gor_id', '=', 'gors.id')->whereIn('gor_id', $gor)->sum('price');
+        $transactions = Transaction::select('transactions.id')->join('gors', 'transactions.gor_id', '=', 'gors.id')->whereIn('gor_id', $gor)->get();
 
-        return 'Rp' . number_format($transactions, 0, ',', '.');
+        $detail_transactions = DetailTransaction::whereIn('transaction_id', $transactions)->sum('subtotal');
+
+        return 'Rp' . number_format($detail_transactions, 0, ',', '.');
     }
 
     public function data_dashboard_total_gor_income_analytic_owner()

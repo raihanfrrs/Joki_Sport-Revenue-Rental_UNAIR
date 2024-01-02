@@ -126,52 +126,6 @@
             </div>
 
         </div>
-
-        <div class="row">
-          <div class="col-12 col-xl-6 mb-4 col-md-6">
-              <div class="card">
-                <div class="card-header d-flex justify-content-between">
-                  <h5 class="mb-0 card-title">Pendapatan Gor</h5>
-                </div>
-                <div class="card-body">
-                  <div class="d-flex align-items-start">
-                    <div class="badge rounded bg-label-success p-2 me-3 rounded">
-                      <i class="ti ti-currency-dollar ti-sm"></i>
-                    </div>
-                    <div class="d-flex justify-content-between w-100 gap-2 align-items-center">
-                      <div class="me-2">
-                        <h6 class="mb-0" id="value-total-gor-income-analytic">0</h6>
-                        <small class="text-muted">Pendapatan Anda</small>
-                      </div>
-                    </div>
-                  </div>
-                  <div id="data-gor-income"></div>
-                </div>
-              </div>
-          </div>
-  
-          <div class="col-12 col-xl-6 mb-4 col-md-6">
-              <div class="card">
-                <div class="card-header d-flex justify-content-between">
-                  <h5 class="mb-0 card-title">Pendapatan Lapangan</h5>
-                </div>
-                <div class="card-body">
-                  <div class="d-flex align-items-start">
-                    <div class="badge rounded bg-label-success p-2 me-3 rounded">
-                      <i class="ti ti-currency-dollar ti-sm"></i>
-                    </div>
-                    <div class="d-flex justify-content-between w-100 gap-2 align-items-center">
-                      <div class="me-2">
-                        <h6 class="mb-0" id="value-total-field-income-analytic">0</h6>
-                        <small class="text-muted">Pendapatan Anda</small>
-                      </div>
-                    </div>
-                  </div>
-                  <div id="data-field-income"></div>
-                </div>
-              </div>
-          </div>
-        </div>
     </div>
 
 
