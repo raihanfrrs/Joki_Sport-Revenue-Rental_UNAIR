@@ -15,16 +15,16 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             AdminSeeder::class,
-            OwnerSeeder::class,
-            RenterSeeder::class,
-            GorSeeder::class,
+            // OwnerSeeder::class,
+            // RenterSeeder::class,
+            // GorSeeder::class,
             // FieldSeeder::class,
-            FieldCategorySeeder::class,
+            // FieldCategorySeeder::class,
             TimeFieldSeeder::class,
             // TransactionSeeder::class,
             // DetailTransactionSeeder::class,
             SubscriptionSeeder::class,
-            OwnerSubscriptionSeeder::class
+            // OwnerSubscriptionSeeder::class
         ]);
     }
 }
