@@ -28,6 +28,9 @@ class YajraDatatablesController extends Controller
         ->addColumn('email', function ($model) {
             return view('components.datatables.master-renter.email-column', compact('model'))->render();
         })
+        ->addColumn('phone', function ($model) {
+            return view('components.datatables.master-renter.phone-column', compact('model'))->render();
+        })
         ->addColumn('created_at', function ($model) {
             return view('components.datatables.master-renter.created-at-column', compact('model'))->render();
         })
@@ -37,7 +40,7 @@ class YajraDatatablesController extends Controller
         ->addColumn('action', function ($model) {
             return view('components.datatables.master-renter.action-column', compact('model'))->render();
         })
-        ->rawColumns(['email', 'created_at', 'status', 'action'])
+        ->rawColumns(['email', 'phone', 'created_at', 'status', 'action'])
         ->make(true);
     }
 
