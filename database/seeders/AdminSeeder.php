@@ -16,8 +16,8 @@ class AdminSeeder extends Seeder
         $admins = [
             [
                 'user_id' => 1,
-                'name' => 'Mohamad Raihan Farras',
-                'slug' => 'mohamad-raihan-farras',
+                'name' => 'Admin 001',
+                'slug' => 'admin-001',
                 'phone' => '081333903187'
             ]
         ];
