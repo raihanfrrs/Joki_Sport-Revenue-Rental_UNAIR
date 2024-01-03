@@ -23,7 +23,6 @@ class YajraDatatablesController extends Controller
                                     ->join('gors', 'transactions.gor_id', '=', 'gors.id')
                                     ->join('owners', 'gors.owner_id', '=', 'owners.id')
                                     ->where('owners.id', auth()->user()->owner->id)
-                                    ->groupBy('renters.id')
                                     ->get())
         ->addColumn('email', function ($model) {
             return view('components.datatables.master-renter.email-column', compact('model'))->render();
