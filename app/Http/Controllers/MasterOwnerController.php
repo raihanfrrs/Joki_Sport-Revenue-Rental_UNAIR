@@ -4,22 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Gor;
 use App\Models\Field;
+use App\Models\Renter;
+use App\Models\TimeField;
+use App\Models\DetailField;
+use App\Models\Transaction;
 use Illuminate\Support\Str;
+use App\Models\BannedRenter;
 use Illuminate\Http\Request;
 use App\Models\FieldCategory;
 use App\Http\Requests\StoreGor;
-use App\Http\Requests\StoreField;
-use Illuminate\Support\Facades\DB;
-use App\Http\Requests\StoreFieldCategory;
-use App\Http\Requests\UpdateField;
-use App\Http\Requests\UpdateFieldCategory;
 use App\Http\Requests\UpdateGor;
-use App\Http\Requests\UpdateRenter;
-use App\Models\BannedRenter;
-use App\Models\DetailField;
+use App\Http\Requests\StoreField;
+use App\Models\DetailTransaction;
 use App\Models\OwnerSubscription;
-use App\Models\Renter;
-use App\Models\TimeField;
+use App\Http\Requests\UpdateField;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\UpdateRenter;
+use App\Http\Requests\StoreFieldCategory;
+use App\Http\Requests\UpdateFieldCategory;
 
 class MasterOwnerController extends Controller
 {
@@ -326,6 +328,9 @@ class MasterOwnerController extends Controller
     {
         DB::transaction(function () use ($field) {
             $field->delete();
+
+            Transaction::where('gor_id', $field->gor->id)->delete();
+            DetailTransaction::where('field_id', $field->id)->delete();
         });
 
         return redirect()->back()->with([
