@@ -49,7 +49,7 @@ class LoginController extends Controller
             return redirect()->intended('/')->with([
                 'flash-type' => 'sweetalert',
                 'case' => 'default',
-                'position' => 'top-end',
+                'position' => 'center',
                 'type' => 'success',
                 'message' => 'Login Berhasil!'
             ]);

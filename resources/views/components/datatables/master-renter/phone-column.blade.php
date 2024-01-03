@@ -1,1 +1,1 @@
-<span class="d-flex justify-content-center">{{ $model->phone ?? 'Belum ada' }}</span>
+<span class="d-flex justify-content-center">{{ $model->phone == '0' ? 'Belum ada' : $model->phone }}</span>

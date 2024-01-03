@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class);
             $table->string('name');
             $table->string('slug');
-            $table->string('phone')->nullable();
+            $table->bigInteger('phone');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });

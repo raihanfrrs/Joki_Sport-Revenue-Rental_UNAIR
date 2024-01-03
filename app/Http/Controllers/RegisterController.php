@@ -34,7 +34,8 @@ class RegisterController extends Controller
                     $owner = Owner::create([
                         'user_id' => $user->id,
                         'name' => $request->nama,
-                        'slug' => Str::slug($request->name)
+                        'slug' => Str::slug($request->nama),
+                        'phone' => 0
                     ]);
 
                     OwnerSubscription::create([
@@ -46,7 +47,8 @@ class RegisterController extends Controller
                     Renter::create([
                         'user_id' => $user->id,
                         'name' => $request->nama,
-                        'slug' => Str::slug($request->name)
+                        'slug' => Str::slug($request->nama),
+                        'phone' => 0
                     ]);
                 }
             });
